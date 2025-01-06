@@ -67,7 +67,7 @@ animations = [{
 script = ExtResource("1_d5sj0")
 
 [node name="Background" parent="." instance=ExtResource("1_txokk")]
-layer_1/enabled = false
+layer_0/enabled = true
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 offset_right = 3840.0
