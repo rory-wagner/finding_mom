@@ -13,7 +13,6 @@ mob_scene = ExtResource("3_11spw")
 portal_scene = ExtResource("4_ftfbk")
 
 [node name="Background" parent="." instance=ExtResource("1_cdssr")]
-layer_1/enabled = false
 
 [node name="MobSpawnLocation" parent="." instance=ExtResource("3_m377v")]
 position = Vector2(-2351, -721)

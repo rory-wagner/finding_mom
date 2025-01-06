@@ -12,7 +12,7 @@ signal quit_game
 @export var current_bullets = 3
 
 @export var current_level = 0
-@export var level_length = 60
+@export var level_length = 80
 
 var score = 0
 
@@ -154,7 +154,7 @@ func display_bullets():
 		$BulletArea.add_child(b)
 
 func update_score():
-	$ScoreLabel.text = str(60 - score)
+	$ScoreLabel.text = str(level_length - score)
 	if score >= level_length:
 		$ScoreTimer.stop()
 		reset_all_bullets()
