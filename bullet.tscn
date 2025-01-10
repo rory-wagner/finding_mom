@@ -103,6 +103,7 @@ func parried():
 func collide_with_target():
 	bullet_die()
 	reclaim_bullet()
+	#BUG TODO: sometimes, a bullet can collide with the player and then be parried by the player
 	#remove from other collisions:
 	collision_layer = 0
 	#stop movement

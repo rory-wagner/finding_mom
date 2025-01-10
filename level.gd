@@ -17,8 +17,8 @@ var current_level: int = 1
 const level_chances = {
 	"1beginning": {
 		"bug" = 0,
-		"soldier" = 20,
-		"spider" = 80,
+		"soldier" = 100,
+		"spider" = 0,
 	},
 	"1end": {
 		"bug" = 0,
