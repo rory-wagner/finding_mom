@@ -64,13 +64,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("9_88i6w")
+}, {
+"duration": 1.0,
 "texture": ExtResource("7_ddk5o")
 }, {
 "duration": 1.0,
 "texture": ExtResource("8_exu1w")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_88i6w")
 }],
 "loop": true,
 "name": &"soldier_attack",
@@ -208,8 +208,12 @@ script = ExtResource("1_x3otr")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_cxtoe")
-animation = &"spider_attack"
+animation = &"soldier_attack"
+frame_progress = 0.869983
 metadata/_edit_group_ = true
+
+[node name="ShootPoint" type="Marker2D" parent="AnimatedSprite2D"]
+position = Vector2(16, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-5, 0)

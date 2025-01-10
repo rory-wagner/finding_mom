@@ -144,7 +144,13 @@ func shoot_bullet():
 		_:
 			bt = b.bullet_types.PURPLE_BALL
 	b.set_bullet(bt)
-	shoot.emit(b, rotation, position)
+	# get the global units of the ShootPoint
+	var global_point = $AnimatedSprite2D/ShootPoint.global_position
+	# direction_vector = player(in global units) - starting_point
+	var direction_vector = player.position - global_point
+	# get the rotation in rads
+	var rotation = atan2(direction_vector.y, direction_vector.x)
+	shoot.emit(b, rotation, global_point)
 	ready_shoot = false
 
 func _on_dead_sprites_animation_finished():
