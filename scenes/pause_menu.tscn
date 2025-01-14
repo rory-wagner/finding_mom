@@ -1,0 +1,151 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbdpur6xsrko7"]
+
+[ext_resource type="Script" path="res://scenes/pause_menu.gd" id="1_gslj7"]
+[ext_resource type="FontFile" uid="uid://omargf2labe" path="res://Assets/fonts/Robot Crush.ttf" id="1_iaiic"]
+[ext_resource type="FontFile" uid="uid://bevi2yfn4fjyf" path="res://Assets/fonts/Xolonium-Regular.ttf" id="1_xjqcs"]
+[ext_resource type="PackedScene" uid="uid://bmd1u62glggyi" path="res://scenes/settings_menu.tscn" id="4_g0cv6"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_gslj7")
+
+[node name="FadedBackground" type="ColorRect" parent="."]
+offset_right = 3840.0
+offset_bottom = 2160.0
+color = Color(0.356863, 0.423529, 1, 0.313726)
+
+[node name="MainPauseMenu" type="ColorRect" parent="."]
+offset_right = 3840.0
+offset_bottom = 2160.0
+color = Color(0, 0, 0, 0)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="MainPauseMenu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 419.0
+offset_top = -640.0
+offset_right = 1419.0
+grow_vertical = 0
+
+[node name="ResumeButton" type="Button" parent="MainPauseMenu/ReferenceRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.5
+offset_top = -87.0
+offset_right = 182.5
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../ReferenceRect3/QuitButton")
+focus_neighbor_top = NodePath("../../ReferenceRect3/QuitButton")
+focus_neighbor_right = NodePath("../../ReferenceRect2/SettingsButton")
+focus_neighbor_bottom = NodePath("../../ReferenceRect2/SettingsButton")
+focus_next = NodePath("../../ReferenceRect2/SettingsButton")
+focus_previous = NodePath("../../ReferenceRect3/QuitButton")
+theme_override_fonts/font = ExtResource("1_iaiic")
+theme_override_font_sizes/font_size = 64
+action_mode = 0
+text = "Resume"
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="MainPauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -640.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="SettingsButton" type="Button" parent="MainPauseMenu/ReferenceRect2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.5
+offset_top = -87.0
+offset_right = 182.5
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../ReferenceRect/ResumeButton")
+focus_neighbor_top = NodePath("../../ReferenceRect/ResumeButton")
+focus_neighbor_right = NodePath("../../ReferenceRect3/QuitButton")
+focus_neighbor_bottom = NodePath("../../ReferenceRect3/QuitButton")
+focus_next = NodePath("../../ReferenceRect3/QuitButton")
+focus_previous = NodePath("../../ReferenceRect/ResumeButton")
+theme_override_fonts/font = ExtResource("1_iaiic")
+theme_override_font_sizes/font_size = 64
+action_mode = 0
+text = "Settings"
+
+[node name="ReferenceRect3" type="ReferenceRect" parent="MainPauseMenu"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1419.0
+offset_top = -640.0
+offset_right = -419.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="QuitButton" type="Button" parent="MainPauseMenu/ReferenceRect3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.5
+offset_top = -87.0
+offset_right = 182.5
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../ReferenceRect2/SettingsButton")
+focus_neighbor_top = NodePath("../../ReferenceRect2/SettingsButton")
+focus_neighbor_right = NodePath("../../ReferenceRect/ResumeButton")
+focus_neighbor_bottom = NodePath("../../ReferenceRect/ResumeButton")
+focus_next = NodePath("../../ReferenceRect/ResumeButton")
+focus_previous = NodePath("../../ReferenceRect2/SettingsButton")
+theme_override_fonts/font = ExtResource("1_iaiic")
+theme_override_font_sizes/font_size = 64
+action_mode = 0
+text = "Quit"
+
+[node name="PausedLabel" type="Label" parent="MainPauseMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_xjqcs")
+theme_override_font_sizes/font_size = 128
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsMenu" parent="." instance=ExtResource("4_g0cv6")]
+visible = false
+
+[connection signal="pressed" from="MainPauseMenu/ReferenceRect/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MainPauseMenu/ReferenceRect2/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MainPauseMenu/ReferenceRect3/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="back_button_pressed" from="SettingsMenu" to="." method="_on_settings_button_pressed"]

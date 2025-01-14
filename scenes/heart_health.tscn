@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmjp7in0h4ukg"]
+
+[ext_resource type="Texture2D" uid="uid://c1o4avu4su2k0" path="res://Assets/Icons/empty_heart.png" id="1_fo0v1"]
+[ext_resource type="Texture2D" uid="uid://bebku0aa4cg6f" path="res://Assets/Icons/heart.png" id="2_spj0c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g7brn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fo0v1")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_spj0c")
+}],
+"loop": true,
+"name": &"full",
+"speed": 5.0
+}]
+
+[node name="HealthContainer" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_g7brn")
+animation = &"empty"

@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7xoa808opdgr"]
+
+[sub_resource type="GDScript" id="GDScript_88y84"]
+script/source = "extends Area2D
+
+var quarter_note_path = \"res://Assets/Characters/player_character/quarter_note.png\"
+var eighth_note_path = \"res://Assets/Characters/player_character/eighth_notes.png\"
+var notes_list = [quarter_note_path, eighth_note_path]
+
+func _ready():
+	var note = notes_list[randi_range(0, 1)]
+	$Note.texture = ResourceLoader.load(note)
+	$Timer.start()
+	
+func _process(_delta):
+	var now = Time.get_unix_time_from_system()
+	var new_position = Vector2(position.x, position.y + sin(now * 5)) # rate of bobbing up and down
+	position = new_position
+
+func _on_timer_timeout():
+	queue_free()
+"
+
+[node name="MusicNotes" type="Area2D"]
+script = SubResource("GDScript_88y84")
+
+[node name="Note" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkb5xls87v012"]
+
+[ext_resource type="PackedScene" uid="uid://c7lrawlrp3ppk" path="res://scenes/tile_map.tscn" id="1_cdssr"]
+[ext_resource type="Script" path="res://scenes/level.gd" id="1_yjmf4"]
+[ext_resource type="PackedScene" uid="uid://b4lsq4j31jm0c" path="res://scenes/mob.tscn" id="3_11spw"]
+[ext_resource type="PackedScene" uid="uid://dpnsqm6815b7a" path="res://scenes/spawn_location.tscn" id="3_m377v"]
+[ext_resource type="PackedScene" uid="uid://cskj3844q1cwu" path="res://scenes/portal.tscn" id="4_ftfbk"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_yjmf4")
+mob_spawn_scene = ExtResource("3_m377v")
+mob_scene = ExtResource("3_11spw")
+portal_scene = ExtResource("4_ftfbk")
+
+[node name="Background" parent="." instance=ExtResource("1_cdssr")]
+
+[node name="MobSpawnLocation" parent="." instance=ExtResource("3_m377v")]
+position = Vector2(-2351, -721)
+
+[node name="MobSpawnLocation2" parent="." instance=ExtResource("3_m377v")]
+position = Vector2(6109, 3803)
+
+[node name="PortalSpawnLocation" parent="." instance=ExtResource("3_m377v")]
+position = Vector2(-770, 313)
+
+[node name="PortalSpawnLocation2" parent="." instance=ExtResource("3_m377v")]
+position = Vector2(3327, 237)
+
+[node name="PortalSpawnLocation3" parent="." instance=ExtResource("3_m377v")]
+position = Vector2(208, 2426)
+
+[node name="PortalSpawnLocation4" parent="." instance=ExtResource("3_m377v")]
+position = Vector2(4326, 2344)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

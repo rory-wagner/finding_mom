@@ -1,0 +1,190 @@
+[gd_scene load_steps=11 format=3 uid="uid://dpww0w0pt1lf1"]
+
+[ext_resource type="Texture2D" uid="uid://ct45ce43stmoh" path="res://Assets/Bullets/purple_circle.png" id="1_6rtsx"]
+[ext_resource type="Texture2D" uid="uid://72g30ee7jeix" path="res://Assets/Bullets/bullet_v2.png" id="2_q7ur8"]
+[ext_resource type="Texture2D" uid="uid://ddtvnoo3a1fn3" path="res://Assets/Bullets/explode_1.png" id="3_mbsh5"]
+[ext_resource type="Texture2D" uid="uid://4g2uhhbithss" path="res://Assets/Bullets/explode_2.png" id="4_6d20w"]
+[ext_resource type="Texture2D" uid="uid://bweclxobss84h" path="res://Assets/Bullets/explode_3.png" id="5_s8ohj"]
+[ext_resource type="Texture2D" uid="uid://bcgvu7olro314" path="res://Assets/Bullets/explode_4.png" id="6_7lq7i"]
+[ext_resource type="AudioStream" uid="uid://b7b5dv2u3divy" path="res://Assets/Music/FreeSFX/GameSFX/Weapon/Retro Weapon Gun LoFi 03.wav" id="7_e5adb"]
+
+[sub_resource type="GDScript" id="GDScript_f2ymo"]
+script/source = "extends RigidBody2D
+
+signal player_bullet_dequeue
+
+var direction = 0
+
+enum bullet_types {
+	PURPLE_BALL,
+	SOLDIER_BULLET,
+	PLAYER_BULLET,
+}
+
+var current_bullet := bullet_types.PURPLE_BALL
+
+const purple_ball := \"purple_ball\"
+const soldier_bullet := \"soldier_bullet\"
+const player_bullet := \"soldier_bullet\"
+
+func _ready():
+	gravity_scale = 0.0
+	
+func set_is_enemy_bullet():
+	add_to_group(\"enemy_bullets\")
+	remove_from_group(\"player_bullets\")
+	collision_layer = 4
+	
+func set_is_player_bullet():
+	add_to_group(\"player_bullets\")
+	remove_from_group(\"enemy_bullets\")
+	collision_layer = 2
+
+# used to set the bullet to the correct image and speed
+func set_bullet(n: int):
+	var b: String = purple_ball
+	match n:
+		bullet_types.PURPLE_BALL:
+			current_bullet = bullet_types.PURPLE_BALL
+			b = purple_ball
+		bullet_types.SOLDIER_BULLET:
+			current_bullet = bullet_types.SOLDIER_BULLET
+			b = soldier_bullet
+		bullet_types.PLAYER_BULLET:
+			current_bullet = bullet_types.PLAYER_BULLET
+			b = player_bullet
+		_:
+			print(\"error setting bullet string\")
+			return
+	$AnimatedSprite2D.stop()
+	$AnimatedSprite2D.play(b)
+	
+# called from main game
+func play_sound():
+	# TODO: check for type and play the correct type of sound
+	$AudioStreamPlayer.pitch_scale = .95 + (randf() * 0.1)
+	$AudioStreamPlayer.play()
+
+# call this after set_bullet so the direction figures out the speed as well
+func set_direction(d):
+	direction = d
+	# take care of multiplying by bullet_speed
+	var v = get_bullet_speed()
+	linear_velocity = v.rotated(direction)
+	
+func get_bullet_speed():
+	var s
+	match current_bullet:
+		bullet_types.PURPLE_BALL:
+			s = Vector2(800.0, 0.0)
+		bullet_types.SOLDIER_BULLET:
+			s = Vector2(1500.0, 0.0)
+		bullet_types.PLAYER_BULLET:
+			s = Vector2(2000.0, 0.0)
+	return s
+
+func _process(_delta):
+	#apply_force(direction, position) # use this for speeding up TODO might use for a tracking projectile
+	
+	#keeps the bullet facing the direction it is moving
+	rotation = direction
+
+func reclaim_bullet():
+	if is_in_group(\"player_bullets\"):
+		player_bullet_dequeue.emit()
+	
+func parried(): 
+	#TODO: we might need to do some additional logic for parrying directly back to the last owner
+	if is_in_group(\"enemy_bullets\"):
+		set_direction(direction - PI)
+		set_is_player_bullet()
+
+# The bullet cannot detect when it has hit a body. So we call this when the body detects the bullet.
+func collide_with_target():
+	bullet_die()
+	reclaim_bullet()
+	#BUG TODO: sometimes, a bullet can collide with the player and then be parried by the player
+	#remove from other collisions:
+	collision_layer = 0
+	#stop movement
+	linear_velocity = Vector2(0,0)
+
+func _on_body_entered(body):
+	if body.is_in_group(\"enemies\"): # coverage for parried bullets TODO: check if this creates a bug where enemy bullets reclaim player bullets
+		reclaim_bullet()
+
+func bullet_die():
+	$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\"
+
+func _on_animated_sprite_2d_animation_finished():
+	if String($AnimatedSprite2D.animation).ends_with(\"_explode\"):
+		queue_free()
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1o8r6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6rtsx")
+}],
+"loop": true,
+"name": &"purple_ball",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_q7ur8")
+}],
+"loop": true,
+"name": &"soldier_bullet",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_mbsh5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6d20w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s8ohj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7lq7i")
+}],
+"loop": true,
+"name": &"soldier_bullet_explode",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r4s7c"]
+radius = 5.6
+height = 24.0
+
+[node name="Bullet" type="RigidBody2D" groups=["bullets"]]
+collision_layer = 0
+collision_mask = 0
+max_contacts_reported = 1000
+contact_monitor = true
+script = SubResource("GDScript_f2ymo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_1o8r6")
+animation = &"soldier_bullet_explode"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(2.5, 2.5)
+shape = SubResource("CapsuleShape2D_r4s7c")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_e5adb")
+volume_db = -8.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="reclaim_bullet"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_animated_sprite_2d_animation_finished"]
