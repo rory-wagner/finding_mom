@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://cskj3844q1cwu"]
+
+[ext_resource type="Script" path="res://scenes/portal.gd" id="1_l5l8x"]
+[ext_resource type="Texture2D" uid="uid://cgpcp3721xdj0" path="res://Assets/Portal/portal1.png" id="2_yypvu"]
+[ext_resource type="Texture2D" uid="uid://dld3v1hh66e0a" path="res://Assets/Portal/portal2.png" id="3_8cpy8"]
+[ext_resource type="Texture2D" uid="uid://b6kw4oevrvpcy" path="res://Assets/Portal/portal3.png" id="4_4ljdp"]
+[ext_resource type="Texture2D" uid="uid://cl13j7t7lm5ru" path="res://Assets/Portal/portal4.png" id="5_4sjj5"]
+[ext_resource type="Texture2D" uid="uid://250ssoo43cgu" path="res://Assets/Portal/portal5.png" id="6_j8vom"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g8kni"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yypvu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8cpy8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4ljdp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4sjj5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j8vom")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8bd6x"]
+
+[node name="Portal" type="Area2D" groups=["portals"]]
+script = ExtResource("1_l5l8x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_g8kni")
+animation = &"spin"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_8bd6x")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

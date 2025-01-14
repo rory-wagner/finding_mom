@@ -1,0 +1,175 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmd1u62glggyi"]
+
+[ext_resource type="Script" path="res://scenes/settings_menu.gd" id="1_myqo7"]
+[ext_resource type="FontFile" uid="uid://omargf2labe" path="res://Assets/fonts/Robot Crush.ttf" id="2_dj67t"]
+
+[node name="SettingsMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_myqo7")
+
+[node name="Settings" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -257.0
+offset_right = 257.0
+offset_bottom = 139.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 128
+text = "Settings"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -400.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BackButton" type="Button" parent="ReferenceRect"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -85.0
+offset_bottom = 85.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_neighbor_left = NodePath("../ApplyButton")
+focus_neighbor_top = NodePath("../../ViewportOptions")
+focus_neighbor_right = NodePath("../ApplyButton")
+focus_neighbor_bottom = NodePath("../../ViewportOptions")
+focus_next = NodePath("../../ResolutionOptions")
+focus_previous = NodePath("../ApplyButton")
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 64
+action_mode = 0
+text = "Back"
+
+[node name="ApplyButton" type="Button" parent="ReferenceRect"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -85.0
+offset_right = 360.0
+offset_bottom = 85.0
+grow_vertical = 2
+focus_neighbor_left = NodePath("../BackButton")
+focus_neighbor_top = NodePath("../../ResolutionOptions")
+focus_neighbor_right = NodePath("../BackButton")
+focus_neighbor_bottom = NodePath("../../ResolutionOptions")
+focus_next = NodePath("../BackButton")
+focus_previous = NodePath("../../ViewportOptions")
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 64
+action_mode = 0
+text = "apply
+"
+
+[node name="ResolutionLabel" type="Label" parent="."]
+offset_left = 664.0
+offset_top = 806.0
+offset_right = 1064.0
+offset_bottom = 886.0
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 64
+text = "Resolution"
+
+[node name="ResolutionOptions" type="OptionButton" parent="."]
+offset_left = 664.0
+offset_top = 926.0
+offset_right = 1264.0
+offset_bottom = 1026.0
+focus_neighbor_left = NodePath("../ViewportOptions")
+focus_neighbor_top = NodePath("../ReferenceRect/ApplyButton")
+focus_neighbor_right = NodePath("../ViewportOptions")
+focus_neighbor_bottom = NodePath("../ReferenceRect/ApplyButton")
+focus_next = NodePath("../ViewportOptions")
+focus_previous = NodePath("../ReferenceRect/BackButton")
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 64
+item_count = 5
+selected = 0
+popup/item_0/text = "3840 X 2160"
+popup/item_0/id = 0
+popup/item_1/text = "2560 X 1440"
+popup/item_1/id = 1
+popup/item_2/text = "1920 X 1080"
+popup/item_2/id = 2
+popup/item_3/text = "1280 X 720"
+popup/item_3/id = 3
+popup/item_4/text = "1152 X 648"
+popup/item_4/id = 4
+
+[node name="ViewportModeLabel" type="Label" parent="."]
+offset_left = 1564.0
+offset_top = 806.0
+offset_right = 1764.0
+offset_bottom = 886.0
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 64
+text = "Mode"
+
+[node name="ViewportOptions" type="OptionButton" parent="."]
+offset_left = 1564.0
+offset_top = 926.0
+offset_right = 2264.0
+offset_bottom = 1026.0
+focus_neighbor_left = NodePath("../ResolutionOptions")
+focus_neighbor_top = NodePath("../ReferenceRect/BackButton")
+focus_neighbor_right = NodePath("../VolumeSlider")
+focus_neighbor_bottom = NodePath("../ReferenceRect/BackButton")
+focus_next = NodePath("../VolumeSlider")
+focus_previous = NodePath("../ResolutionOptions")
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 64
+item_count = 5
+selected = 0
+popup/item_0/text = "Fullscreen"
+popup/item_0/id = 0
+popup/item_1/text = "Windowed"
+popup/item_1/id = 1
+popup/item_2/text = "Maximized"
+popup/item_2/id = 2
+popup/item_3/text = "Minimized"
+popup/item_3/id = 3
+popup/item_4/text = "Exclusive Fullscreen"
+popup/item_4/id = 4
+
+[node name="VolumeLabel" type="Label" parent="."]
+offset_left = 2552.0
+offset_top = 806.0
+offset_right = 2775.0
+offset_bottom = 886.0
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 64
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+offset_left = 2552.0
+offset_top = 950.0
+offset_right = 2990.0
+offset_bottom = 966.0
+focus_neighbor_left = NodePath("../ViewportOptions")
+focus_neighbor_top = NodePath("../ReferenceRect/BackButton")
+focus_neighbor_right = NodePath("../ResolutionOptions")
+focus_neighbor_bottom = NodePath("../ReferenceRect/BackButton")
+focus_next = NodePath("../ReferenceRect/ApplyButton")
+focus_previous = NodePath("../ViewportOptions")
+min_value = -80.0
+max_value = 6.0
+
+[connection signal="pressed" from="ReferenceRect/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ReferenceRect/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="item_selected" from="ResolutionOptions" to="." method="_on_resolution_options_item_selected"]
+[connection signal="item_selected" from="ViewportOptions" to="." method="_on_viewport_mode_options_item_selected"]
+[connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]

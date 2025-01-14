@@ -1,0 +1,230 @@
+[gd_scene load_steps=19 format=3 uid="uid://cscp8ee41n224"]
+
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_84h01"]
+[ext_resource type="PackedScene" uid="uid://cdbt8nsaysi3g" path="res://scenes/opening_scene.tscn" id="2_tbjnd"]
+[ext_resource type="FontFile" uid="uid://omargf2labe" path="res://Assets/fonts/Robot Crush.ttf" id="3_0j6aa"]
+[ext_resource type="Texture2D" uid="uid://cdg76o3tehvtu" path="res://Assets/Icons/Finding_Mom_4k.png" id="4_xpknc"]
+[ext_resource type="PackedScene" uid="uid://bmd1u62glggyi" path="res://scenes/settings_menu.tscn" id="5_siyj8"]
+[ext_resource type="Texture2D" uid="uid://dvi54gybw336b" path="res://Assets/Controls/gdb-keyboard-2.png" id="6_x0p38"]
+[ext_resource type="Texture2D" uid="uid://d1q2g8bpf7atj" path="res://Assets/Controls/gdb-switch-2.png" id="7_4gw1w"]
+[ext_resource type="Texture2D" uid="uid://tr5rdwvg3brg" path="res://Assets/Controls/gdb-playstation-2.png" id="8_oiex5"]
+[ext_resource type="Texture2D" uid="uid://rdwslsowfsmu" path="res://Assets/Controls/gdb-xbox-2.png" id="9_qj2bb"]
+[ext_resource type="AudioStream" uid="uid://bncucsk3jgpkc" path="res://Assets/Music/mom_theme.mp3" id="10_stfje"]
+
+[sub_resource type="GDScript" id="GDScript_p1d5m"]
+script/source = "extends Button
+"
+
+[sub_resource type="GDScript" id="GDScript_mh8sc"]
+script/source = "extends Button
+
+"
+
+[sub_resource type="GDScript" id="GDScript_4pgbn"]
+script/source = "extends Button
+
+
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwlf2"]
+atlas = ExtResource("6_x0p38")
+region = Rect2(32, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eofa4"]
+atlas = ExtResource("7_4gw1w")
+region = Rect2(112, 129, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36oad"]
+atlas = ExtResource("8_oiex5")
+region = Rect2(336, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a58wa"]
+atlas = ExtResource("9_qj2bb")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p0sr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwlf2")
+}],
+"loop": true,
+"name": &"keyboard",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eofa4")
+}],
+"loop": true,
+"name": &"nintendo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36oad")
+}],
+"loop": true,
+"name": &"playstation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a58wa")
+}],
+"loop": true,
+"name": &"xbox",
+"speed": 5.0
+}]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_84h01")
+
+[node name="OpeningScene" parent="." instance=ExtResource("2_tbjnd")]
+
+[node name="MainMenuCanvas" type="CanvasLayer" parent="."]
+
+[node name="ReferenceRect" type="ReferenceRect" parent="MainMenuCanvas"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 419.0
+offset_top = -700.0
+offset_right = 1419.0
+grow_vertical = 0
+
+[node name="PLAY_BUTTON" type="Button" parent="MainMenuCanvas/ReferenceRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -90.0
+offset_right = 250.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../ReferenceRect3/QUIT_BUTTON")
+focus_neighbor_top = NodePath("../../ReferenceRect3/QUIT_BUTTON")
+focus_neighbor_right = NodePath("../../ReferenceRect2/SETTINGS_BUTTON")
+focus_neighbor_bottom = NodePath("../../ReferenceRect2/SETTINGS_BUTTON")
+focus_next = NodePath("../../ReferenceRect2/SETTINGS_BUTTON")
+focus_previous = NodePath("../../ReferenceRect3/QUIT_BUTTON")
+theme_override_fonts/font = ExtResource("3_0j6aa")
+theme_override_font_sizes/font_size = 64
+action_mode = 0
+text = "Play"
+script = SubResource("GDScript_p1d5m")
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="MainMenuCanvas"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -700.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="SETTINGS_BUTTON" type="Button" parent="MainMenuCanvas/ReferenceRect2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -90.0
+offset_right = 250.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../ReferenceRect/PLAY_BUTTON")
+focus_neighbor_top = NodePath("../../ReferenceRect/PLAY_BUTTON")
+focus_neighbor_right = NodePath("../../ReferenceRect3/QUIT_BUTTON")
+focus_neighbor_bottom = NodePath("../../ReferenceRect3/QUIT_BUTTON")
+focus_next = NodePath("../../ReferenceRect3/QUIT_BUTTON")
+focus_previous = NodePath("../../ReferenceRect/PLAY_BUTTON")
+theme_override_fonts/font = ExtResource("3_0j6aa")
+theme_override_font_sizes/font_size = 64
+action_mode = 0
+text = "Settings"
+script = SubResource("GDScript_mh8sc")
+
+[node name="ReferenceRect3" type="ReferenceRect" parent="MainMenuCanvas"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1419.0
+offset_top = -700.0
+offset_right = -419.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="QUIT_BUTTON" type="Button" parent="MainMenuCanvas/ReferenceRect3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -90.0
+offset_right = 250.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../ReferenceRect2/SETTINGS_BUTTON")
+focus_neighbor_top = NodePath("../../ReferenceRect2/SETTINGS_BUTTON")
+focus_neighbor_right = NodePath("../../ReferenceRect/PLAY_BUTTON")
+focus_neighbor_bottom = NodePath("../../ReferenceRect/PLAY_BUTTON")
+focus_next = NodePath("../../ReferenceRect/PLAY_BUTTON")
+focus_previous = NodePath("../../ReferenceRect2/SETTINGS_BUTTON")
+theme_override_fonts/font = ExtResource("3_0j6aa")
+theme_override_font_sizes/font_size = 64
+action_mode = 0
+text = "Quit"
+script = SubResource("GDScript_4pgbn")
+
+[node name="Title" type="Sprite2D" parent="MainMenuCanvas"]
+position = Vector2(1920, 450)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_xpknc")
+
+[node name="SettingsMenu" parent="." instance=ExtResource("5_siyj8")]
+visible = false
+
+[node name="SkipArea" type="Area2D" parent="."]
+visible = false
+position = Vector2(3840, 2160)
+
+[node name="SkipLabel" type="Label" parent="SkipArea"]
+offset_left = -188.0
+offset_top = -85.0
+offset_bottom = -1.0
+theme_override_fonts/font = ExtResource("3_0j6aa")
+theme_override_font_sizes/font_size = 48
+text = "to skip"
+
+[node name="SkipButtonSprite" type="AnimatedSprite2D" parent="SkipArea"]
+position = Vector2(-251, -54)
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_p0sr3")
+animation = &"xbox"
+
+[node name="MenuThemeSong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_stfje")
+bus = &"Main Menu"
+
+[connection signal="finish" from="OpeningScene" to="." method="_on_opening_scene_finish"]
+[connection signal="pressed" from="MainMenuCanvas/ReferenceRect/PLAY_BUTTON" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainMenuCanvas/ReferenceRect2/SETTINGS_BUTTON" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MainMenuCanvas/ReferenceRect3/QUIT_BUTTON" to="." method="_on_quit_button_pressed"]
+[connection signal="back_button_pressed" from="SettingsMenu" to="." method="_on_settings_button_pressed"]
+[connection signal="finished" from="MenuThemeSong" to="." method="_on_menu_theme_song_finished"]
