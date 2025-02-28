@@ -9,7 +9,7 @@ func _ready():
 	new_game()
 
 func _process(_delta):
-	if $Player.current_state == $Player.states.DEAD: #TODO: check this logic
+	if $Player.current_state == $Player.states.DEAD: #TODO: might need to display controls for exiting
 		if Input.is_action_just_pressed("pause"):
 			_on_pause_menu_return_menu()
 

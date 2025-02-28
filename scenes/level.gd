@@ -13,37 +13,43 @@ var valid_mob_spawn_locations = []
 var current_level: int = 1
 
 # TODO: use the time from the HUD as a ratio between "beginning" and "end"
-# each of these are the chances out of 101% what mob it might be
+# each of these are the chances out of 100% what mob it might be
 const level_chances = {
 	"1beginning": {
 		"bug" = 0,
 		"soldier" = 30,
 		"spider" = 70,
+		"drone" = 0,
 	},
 	"1end": {
 		"bug" = 0,
 		"soldier" = 70,
 		"spider" = 30,
+		"drone" = 0,
 	},
 	"2beginning": {
 		"bug" = 0,
 		"soldier" = 20,
 		"spider" = 80,
+		"drone" = 0,
 	},
 	"2end": {
 		"bug" = 0,
 		"soldier" = 70,
 		"spider" = 30,
+		"drone" = 0,
 	},
 	"3beginning": {
 		"bug" = 0,
 		"soldier" = 20,
 		"spider" = 80,
+		"drone" = 0,
 	},
 	"3end": {
 		"bug" = 0,
 		"soldier" = 70,
 		"spider" = 30,
+		"drone" = 0,
 	},
 }
 

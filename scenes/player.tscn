@@ -1,10 +1,11 @@
-[gd_scene load_steps=44 format=3 uid="uid://rgkuwjb6bgdc"]
+[gd_scene load_steps=46 format=3 uid="uid://rgkuwjb6bgdc"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_r8k0x"]
 [ext_resource type="Texture2D" uid="uid://buyr3kd5j0ove" path="res://Assets/Characters/player_character/middle_legs.png" id="2_q014k"]
 [ext_resource type="Texture2D" uid="uid://b86yy5r4lrxh5" path="res://Assets/Characters/player_character/right_legs.png" id="3_mj1ys"]
 [ext_resource type="Texture2D" uid="uid://llmuwojlxvda" path="res://Assets/Characters/player_character/left_legs.png" id="4_na7is"]
 [ext_resource type="Texture2D" uid="uid://dy7bqaqvfh0w5" path="res://Assets/Characters/player_character/parry_1.png" id="5_2b2qh"]
+[ext_resource type="Shader" path="res://scenes/player.gdshader" id="5_6c5ei"]
 [ext_resource type="Texture2D" uid="uid://bry5rkatim6u1" path="res://Assets/Characters/player_character/middle_shoulder.png" id="5_mvej2"]
 [ext_resource type="Texture2D" uid="uid://d46nrymybnyq" path="res://Assets/Characters/player_character/death_1.png" id="5_vvtue"]
 [ext_resource type="Texture2D" uid="uid://w1aeun76lcht" path="res://Assets/Characters/player_character/death_2.png" id="6_4pip0"]
@@ -65,6 +66,9 @@ animations = [{
 "name": &"walk",
 "speed": 5.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_egtoi"]
+shader = ExtResource("5_6c5ei")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nwkqy"]
 animations = [{
@@ -253,9 +257,10 @@ sprite_frames = SubResource("SpriteFrames_cry5f")
 animation = &"walk"
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_egtoi")
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_nwkqy")
-animation = &"shoot_stand"
+animation = &"parry"
 
 [node name="RightSide" type="Marker2D" parent="Area2D/BodySprite"]
 position = Vector2(0, 15)
@@ -267,9 +272,11 @@ position = Vector2(0, -15)
 position = Vector2(14, 15)
 
 [node name="CollisionBox" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CapsuleShape2D_wsoa5")
 
 [node name="ParryArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 0
 
@@ -282,6 +289,7 @@ shape = SubResource("CapsuleShape2D_brhbq")
 shape = SubResource("CapsuleShape2D_hybn0")
 
 [node name="ParryAreaAll" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 0
 

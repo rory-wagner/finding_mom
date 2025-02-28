@@ -7,9 +7,10 @@ var type = "soldier"
 var available_mob_types = [
 	"soldier",
 	"spider",
+	"drone",
 ]
 
-var player
+var player = null
 
 enum states {
 	MOVE,
@@ -54,6 +55,8 @@ func _process(_delta):
 			move_spider()
 		"soldier":
 			move_soldier()
+		"drone":
+			move_drone()
 	pass
 	
 func move_bug():
@@ -83,12 +86,15 @@ func move_spider():
 			$AnimatedSprite2D.frame = frame
 		
 func move_soldier():
-	var v = player.position - position
+	var v = Vector2(0.0, 0.0)
+	if player != null:
+		v = player.position - position
 	var distance_to_player = sqrt((v.x * v.x) + (v.y * v.y))
 	
 	#logic for shooting at player
 	if current_state == states.SHOOT:
-		look_at(player.position)
+		if player != null:
+			look_at(player.position)
 		if ready_shoot:
 			change_living_texture("soldier_attack", false)
 		# if we aren't shooting and the player is far away, switch back to MOVE
@@ -100,7 +106,8 @@ func move_soldier():
 
 	#logic for tracking player
 	elif current_state == states.MOVE:
-		look_at(player.position)
+		if player != null:
+			look_at(player.position)
 		if distance_to_player > 600:
 			var motion = player.position
 			motion = motion - position
@@ -115,6 +122,9 @@ func move_soldier():
 
 	start_animations(velocity)
 	move_and_slide()
+	
+func move_drone():
+	return
 
 # called by main game to let us know where the player is
 func set_player(p):
@@ -130,6 +140,9 @@ func _on_bullet_timer_timeout():
 			"soldier":
 				# mark that the soldier can shoot again, and let the _process function do that
 				ready_shoot = true
+			"drone":
+				pass
+				#TODO: implement
 			
 func shoot_bullet():
 	var b = Bullet.instantiate()
@@ -141,6 +154,9 @@ func shoot_bullet():
 			bt = b.bullet_types.PURPLE_BALL
 		"soldier":
 			bt = b.bullet_types.SOLDIER_BULLET
+		"drone":
+			#TODO: implement missile
+			bt = b.bullet_type.PURPLE_BALL
 		_:
 			bt = b.bullet_types.PURPLE_BALL
 	b.set_bullet(bt)
@@ -149,8 +165,8 @@ func shoot_bullet():
 	# direction_vector = player(in global units) - starting_point
 	var direction_vector = player.position - global_point
 	# get the rotation in rads
-	var rotation = atan2(direction_vector.y, direction_vector.x)
-	shoot.emit(b, rotation, global_point)
+	var r = atan2(direction_vector.y, direction_vector.x)
+	shoot.emit(b, r, global_point)
 	ready_shoot = false
 
 func _on_dead_sprites_animation_finished():
