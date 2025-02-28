@@ -1,12 +1,16 @@
-[gd_scene load_steps=36 format=3 uid="uid://b4lsq4j31jm0c"]
+[gd_scene load_steps=40 format=3 uid="uid://b4lsq4j31jm0c"]
 
 [ext_resource type="Script" path="res://scenes/mob.gd" id="1_uk6uk"]
 [ext_resource type="Texture2D" uid="uid://co4eihc8e5y20" path="res://Assets/Characters/bug/basic_bug.png" id="2_4yvq4"]
 [ext_resource type="Texture2D" uid="uid://dao871lqfvf7m" path="res://Assets/Characters/bug/basic_bug_2.png" id="3_xmnyx"]
+[ext_resource type="Texture2D" uid="uid://dxwx7hyu022kh" path="res://Assets/Characters/drone/drone_1.png" id="4_745j4"]
 [ext_resource type="Texture2D" uid="uid://b7iqd8gaaurj4" path="res://Assets/Characters/soldier/soldier_walk_1.png" id="4_oiqwj"]
+[ext_resource type="Texture2D" uid="uid://biioo66v6h7yu" path="res://Assets/Characters/drone/drone_2.png" id="5_5lr2d"]
 [ext_resource type="Texture2D" uid="uid://b7e6snpc3o1r" path="res://Assets/Characters/soldier/soldier_walk_2.png" id="5_u1etl"]
 [ext_resource type="Texture2D" uid="uid://c41su37ytbika" path="res://Assets/Characters/soldier/soldier_walk_3.png" id="6_f5v34"]
+[ext_resource type="Texture2D" uid="uid://ci41ke2u08knq" path="res://Assets/Characters/drone/drone_3.png" id="6_heyca"]
 [ext_resource type="Texture2D" uid="uid://chndoysfc6it3" path="res://Assets/Characters/soldier/soldier_shoot_1.png" id="7_7i4y6"]
+[ext_resource type="Texture2D" uid="uid://jhw14uf5flp3" path="res://Assets/Characters/drone/drone_4.png" id="7_cf3ky"]
 [ext_resource type="Texture2D" uid="uid://bm3cyctwbbbu4" path="res://Assets/Characters/soldier/soldier_shoot_3.png" id="8_o2a2t"]
 [ext_resource type="Texture2D" uid="uid://bg0btfqrfsysi" path="res://Assets/Characters/soldier/soldier_shoot_2.png" id="9_fvcy6"]
 [ext_resource type="Texture2D" uid="uid://b1sabaji22vnh" path="res://Assets/Characters/spider/spider_1.png" id="10_13xbj"]
@@ -43,6 +47,28 @@ animations = [{
 }],
 "loop": true,
 "name": &"bug",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_745j4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5lr2d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_heyca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_cf3ky")
+}],
+"loop": true,
+"name": &"drone",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"drone_attack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -149,6 +175,11 @@ animations = [{
 "name": &"bug",
 "speed": 15.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"drone",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("18_f4jxe")
@@ -208,8 +239,7 @@ script = ExtResource("1_uk6uk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_cxtoe")
-animation = &"soldier_attack"
-frame_progress = 0.869983
+animation = &"soldier"
 metadata/_edit_group_ = true
 
 [node name="ShootPoint" type="Marker2D" parent="AnimatedSprite2D"]
@@ -234,7 +264,7 @@ shape = SubResource("CapsuleShape2D_vkt81")
 visible = false
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_7x2qw")
-animation = &"spider"
+animation = &"drone"
 
 [node name="BulletTimer" type="Timer" parent="."]
 wait_time = 4.0

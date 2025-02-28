@@ -68,6 +68,7 @@ script = ExtResource("1_3d7sj")
 
 [node name="Background" parent="." instance=ExtResource("2_aeprt")]
 layer_0/enabled = true
+layer_2/enabled = false
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 offset_right = 3840.0

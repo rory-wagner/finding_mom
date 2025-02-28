@@ -12,7 +12,7 @@ signal quit_game
 @export var current_bullets = 3
 
 @export var current_level = 0
-@export var level_length = 80
+@export var level_length = 5
 
 var score = 0
 

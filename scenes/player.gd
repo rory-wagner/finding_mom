@@ -333,6 +333,7 @@ func _on_parry_area_body_entered(body):
 		freeze_frame.emit(.1, 0.37)
 		set_parry_all_collisions(4)
 		$ParrySuccessTimer.start()
+		# TODO: implement some shaders on successful parry
 		pass
 
 func _on_parry_area_all_body_entered(body):
