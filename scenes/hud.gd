@@ -5,14 +5,14 @@ signal start_game
 signal level_complete
 signal quit_game
 
-@export var total_hearts = 3
-@export var current_health = 3
+@export var total_hearts = 10
+@export var current_health = 30
 
 @export var total_bullets = 3
 @export var current_bullets = 3
 
 @export var current_level = 0
-@export var level_length = 5
+@export var level_length = 80
 
 var score = 0
 
@@ -26,7 +26,7 @@ var empty_bullet = load("res://Assets/Bullets/basic_empty_bullet.png")
 func _ready():
 	show_controls()
 	pass
-	
+
 # will handle event input
 func _input(event: InputEvent):	
 	# see if the mouse moved to display mouse and hide cursor:

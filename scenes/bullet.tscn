@@ -1,12 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://dpww0w0pt1lf1"]
+[gd_scene load_steps=18 format=3 uid="uid://dpww0w0pt1lf1"]
 
 [ext_resource type="Texture2D" uid="uid://ct45ce43stmoh" path="res://Assets/Bullets/purple_circle.png" id="1_6rtsx"]
+[ext_resource type="Texture2D" uid="uid://bssu3lfa5xoud" path="res://Assets/Bullets/missile_1.png" id="1_vg8pk"]
+[ext_resource type="Texture2D" uid="uid://bikw072lu1vbs" path="res://Assets/Bullets/missile_2.png" id="2_d8gog"]
 [ext_resource type="Texture2D" uid="uid://72g30ee7jeix" path="res://Assets/Bullets/bullet_v2.png" id="2_q7ur8"]
 [ext_resource type="Texture2D" uid="uid://ddtvnoo3a1fn3" path="res://Assets/Bullets/explode_1.png" id="3_mbsh5"]
+[ext_resource type="Texture2D" uid="uid://y0fbqvsmpay0" path="res://Assets/Bullets/bomb_1.png" id="3_t832q"]
 [ext_resource type="Texture2D" uid="uid://4g2uhhbithss" path="res://Assets/Bullets/explode_2.png" id="4_6d20w"]
+[ext_resource type="Texture2D" uid="uid://derep0xqujel2" path="res://Assets/Bullets/bomb_2.png" id="4_u4yoe"]
+[ext_resource type="Texture2D" uid="uid://cmlt2jc0o77y8" path="res://Assets/Bullets/bomb_3.png" id="5_ciq84"]
 [ext_resource type="Texture2D" uid="uid://bweclxobss84h" path="res://Assets/Bullets/explode_3.png" id="5_s8ohj"]
+[ext_resource type="Texture2D" uid="uid://cu0c1553tpnnr" path="res://Assets/Bullets/bomb_4.png" id="6_5xkxm"]
 [ext_resource type="Texture2D" uid="uid://bcgvu7olro314" path="res://Assets/Bullets/explode_4.png" id="6_7lq7i"]
 [ext_resource type="AudioStream" uid="uid://b7b5dv2u3divy" path="res://Assets/Music/FreeSFX/GameSFX/Weapon/Retro Weapon Gun LoFi 03.wav" id="7_e5adb"]
+[ext_resource type="Texture2D" uid="uid://dwqmiip8nrpw7" path="res://Assets/Bullets/bomb_5.png" id="7_uftfh"]
 
 [sub_resource type="GDScript" id="GDScript_f2ymo"]
 script/source = "extends RigidBody2D
@@ -19,6 +26,7 @@ enum bullet_types {
 	PURPLE_BALL,
 	SOLDIER_BULLET,
 	PLAYER_BULLET,
+	DRONE_MISSILE,
 }
 
 var current_bullet := bullet_types.PURPLE_BALL
@@ -26,6 +34,7 @@ var current_bullet := bullet_types.PURPLE_BALL
 const purple_ball := \"purple_ball\"
 const soldier_bullet := \"soldier_bullet\"
 const player_bullet := \"soldier_bullet\"
+const drone_missile := \"drone_missile\"
 
 func _ready():
 	gravity_scale = 0.0
@@ -53,6 +62,9 @@ func set_bullet(n: int):
 		bullet_types.PLAYER_BULLET:
 			current_bullet = bullet_types.PLAYER_BULLET
 			b = player_bullet
+		bullet_types.DRONE_MISSILE:
+			current_bullet = bullet_types.DRONE_MISSILE
+			b = drone_missile
 		_:
 			print(\"error setting bullet string\")
 			return
@@ -81,6 +93,8 @@ func get_bullet_speed():
 			s = Vector2(1500.0, 0.0)
 		bullet_types.PLAYER_BULLET:
 			s = Vector2(2000.0, 0.0)
+		bullet_types.DRONE_MISSILE:
+			s = Vector2(800.0, 0.0)
 	return s
 
 func _process(_delta):
@@ -114,7 +128,7 @@ func _on_body_entered(body):
 		reclaim_bullet()
 
 func bullet_die():
-	$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\"
+	$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\" #TODO: check if this fails if there isn't an _explode animation
 
 func _on_animated_sprite_2d_animation_finished():
 	if String($AnimatedSprite2D.animation).ends_with(\"_explode\"):
@@ -123,6 +137,37 @@ func _on_animated_sprite_2d_animation_finished():
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1o8r6"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vg8pk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_d8gog")
+}],
+"loop": true,
+"name": &"drone_missile",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_t832q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_u4yoe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ciq84")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5xkxm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_uftfh")
+}],
+"loop": true,
+"name": &"drone_missile_explode",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_6rtsx")
@@ -154,7 +199,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"soldier_bullet_explode",
-"speed": 10.0
+"speed": 8.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r4s7c"]
@@ -171,7 +216,8 @@ script = SubResource("GDScript_f2ymo")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_1o8r6")
-animation = &"soldier_bullet_explode"
+animation = &"drone_missile_explode"
+frame_progress = 0.262387
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

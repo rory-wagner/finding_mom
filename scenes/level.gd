@@ -10,22 +10,22 @@ signal spawn_portal(m: Resource)
 
 var valid_mob_spawn_locations = []
 
-var current_level: int = 1
+var current_level: int = 0
 
 # TODO: use the time from the HUD as a ratio between "beginning" and "end"
 # each of these are the chances out of 100% what mob it might be
 const level_chances = {
 	"1beginning": {
 		"bug" = 0,
-		"soldier" = 30,
+		"soldier" = 20,
 		"spider" = 70,
-		"drone" = 0,
+		"drone" = 10,
 	},
 	"1end": {
 		"bug" = 0,
-		"soldier" = 70,
-		"spider" = 30,
-		"drone" = 0,
+		"soldier" = 30,
+		"spider" = 20,
+		"drone" = 50,
 	},
 	"2beginning": {
 		"bug" = 0,
@@ -157,6 +157,6 @@ func get_mob_type_from_level() -> String:
 			break
 		else:
 			total += chances[key]
-	if type == "": # default ***THIS SHOULD NEVER BE HIT*** But we are leaving it here anyway
+	if type == "": # default ***THIS SHOULD NEVER BE HIT*** But we are leaving it here anyway just in case
 		type = "spider"
 	return type
