@@ -5,8 +5,8 @@ signal start_game
 signal level_complete
 signal quit_game
 
-@export var total_hearts = 10
-@export var current_health = 30
+@export var total_hearts = 3
+@export var current_health = 3
 
 @export var total_bullets = 3
 @export var current_bullets = 3
