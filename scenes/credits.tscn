@@ -74,19 +74,28 @@ offset_bottom = 2160.0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_fs5dm")
 theme_override_font_sizes/font_size = 64
-text = "game developer - Rory Wagner
+text = "
+Development
+
+game developer - Rory Wagner
 
 
+
+
+art
+pixel artist - Rory Wagner
 
 designer - Jace Howard
-
-
 
 artist - Jocelyn Hawkes
 
 
 
-music - Rory Wagner,  Thomas Murray"
+
+music
+director - rory wagner
+
+artist - Thomas Murray"
 
 [node name="ExitTimer" type="Timer" parent="."]
 wait_time = 3.0

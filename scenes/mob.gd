@@ -75,12 +75,13 @@ func move_spider():
 		velocity = motion
 		move_and_slide()
 		
-		# the spider will show glowing red eyes if within 400 of player:
-		if distance.length() < 400 and $AnimatedSprite2D.animation == "spider":
+		# the spider will show glowing red eyes if within 450 of player:
+		var spider_dist = 450
+		if distance.length() < spider_dist and $AnimatedSprite2D.animation == "spider":
 			var frame = $AnimatedSprite2D.frame
 			$AnimatedSprite2D.play("spider_attack")
 			$AnimatedSprite2D.frame = frame
-		elif distance.length() >= 400 and $AnimatedSprite2D.animation == "spider_attack":
+		elif distance.length() >= spider_dist and $AnimatedSprite2D.animation == "spider_attack":
 			var frame = $AnimatedSprite2D.frame
 			$AnimatedSprite2D.play("spider")
 			$AnimatedSprite2D.frame = frame
@@ -124,13 +125,38 @@ func move_soldier():
 	move_and_slide()
 	
 func move_drone():
-	return
+	var v = Vector2(0.0, 0.0)
+	if player != null:
+		v = player.position - position
+	var distance_to_player = sqrt((v.x * v.x) + (v.y * v.y))
+	
+	match current_state:
+		states.DEAD:
+			velocity = Vector2.ZERO
+		states.MOVE:
+			if player != null:
+				look_at(player.position)
+			var motion = player.position
+			motion = motion - position
+			motion = motion.normalized()
+			motion = motion * 300
+			if distance_to_player > 1000:
+				velocity = motion
+			else:
+				velocity = Vector2(-motion.y, motion.x)
+			if ready_shoot:
+				current_state = states.SHOOT
+				shoot_bullet()
+		states.SHOOT:
+			current_state = states.MOVE
+	move_and_slide()
 
 # called by main game to let us know where the player is
 func set_player(p):
 	player = p
 
 func _on_bullet_timer_timeout():
+	#TODO: do we need this match statement?
 	if current_state != states.DEAD:
 		match type:
 			"bug":
@@ -141,9 +167,9 @@ func _on_bullet_timer_timeout():
 				# mark that the soldier can shoot again, and let the _process function do that
 				ready_shoot = true
 			"drone":
-				pass
+				ready_shoot = true
 				#TODO: implement
-			
+
 func shoot_bullet():
 	var b = Bullet.instantiate()
 	var bt
@@ -156,7 +182,8 @@ func shoot_bullet():
 			bt = b.bullet_types.SOLDIER_BULLET
 		"drone":
 			#TODO: implement missile
-			bt = b.bullet_type.PURPLE_BALL
+			bt = b.bullet_types.DRONE_MISSILE
+			#bt = b.bullet_types.PURPLE_BALL
 		_:
 			bt = b.bullet_types.PURPLE_BALL
 	b.set_bullet(bt)

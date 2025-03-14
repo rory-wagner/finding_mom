@@ -7,7 +7,7 @@ func _process(_delta):
 		get_tree().quit(0)
 		
 
-func _input(event):
+func _input(_event):
 	$ExitTimer.start(3.0)
 	$SkipArea.show()
 
