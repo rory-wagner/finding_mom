@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b4lsq4j31jm0c"]
+[gd_scene load_steps=48 format=3 uid="uid://b4lsq4j31jm0c"]
 
 [ext_resource type="Script" path="res://scenes/mob.gd" id="1_uk6uk"]
 [ext_resource type="Texture2D" uid="uid://co4eihc8e5y20" path="res://Assets/Characters/bug/basic_bug.png" id="2_4yvq4"]
@@ -25,14 +25,22 @@
 [ext_resource type="Texture2D" uid="uid://drr0hufdx5sna" path="res://Assets/Characters/soldier/soldier_dead_2.png" id="19_crwh7"]
 [ext_resource type="Texture2D" uid="uid://cjpfxxv6go4xp" path="res://Assets/Characters/soldier/soldier_dead_3.png" id="20_yqnmh"]
 [ext_resource type="Texture2D" uid="uid://ckmsqnvt4khj2" path="res://Assets/Characters/soldier/soldier_dead_4.png" id="21_odivr"]
+[ext_resource type="Texture2D" uid="uid://n5iqgkqkl8e7" path="res://Assets/Characters/drone/drone_death_1.png" id="22_nc3vj"]
 [ext_resource type="Texture2D" uid="uid://t4vcpie0uvtt" path="res://Assets/Characters/soldier/soldier_dead_5.png" id="22_qd0fi"]
+[ext_resource type="Texture2D" uid="uid://bv5tctvurr8m5" path="res://Assets/Characters/drone/drone_death_2.png" id="23_pmk3d"]
 [ext_resource type="Texture2D" uid="uid://dltxcua03mpft" path="res://Assets/Characters/soldier/soldier_dead_6.png" id="23_v52ll"]
 [ext_resource type="Texture2D" uid="uid://d0c4c0y3ilbaf" path="res://Assets/Characters/soldier/soldier_dead_7.png" id="24_tmli0"]
+[ext_resource type="Texture2D" uid="uid://dimv617ffp5e4" path="res://Assets/Characters/drone/drone_death_3.png" id="24_yvcnk"]
 [ext_resource type="Texture2D" uid="uid://glyhp68en1j2" path="res://Assets/Characters/spider/spider_dead_1.png" id="25_01g1l"]
+[ext_resource type="Texture2D" uid="uid://bp4r5pebtede8" path="res://Assets/Characters/drone/drone_death_4.png" id="25_vg8ig"]
+[ext_resource type="Texture2D" uid="uid://sxpu52brdv3r" path="res://Assets/Characters/drone/drone_death_5.png" id="26_5stxh"]
 [ext_resource type="Texture2D" uid="uid://d4jfo3o5hiqm3" path="res://Assets/Characters/spider/spider_dead_2.png" id="26_bcc7v"]
+[ext_resource type="Texture2D" uid="uid://yvg4n6hp5kwo" path="res://Assets/Characters/drone/drone_death_6.png" id="27_lsltp"]
 [ext_resource type="Texture2D" uid="uid://ckawendvs1gx" path="res://Assets/Characters/spider/spider_dead_3.png" id="27_u1a7i"]
+[ext_resource type="Texture2D" uid="uid://cw0pixaieym86" path="res://Assets/Characters/drone/drone_death_7.png" id="28_8l4s3"]
 [ext_resource type="Texture2D" uid="uid://c0pwgabxi4mhx" path="res://Assets/Characters/spider/spider_dead_4.png" id="28_rr0kb"]
 [ext_resource type="Texture2D" uid="uid://kdd1whykwfc0" path="res://Assets/Characters/spider/spider_dead_5.png" id="29_m466w"]
+[ext_resource type="Texture2D" uid="uid://dk8h744msg4te" path="res://Assets/Characters/drone/drone_death_8.png" id="29_twm1o"]
 [ext_resource type="Texture2D" uid="uid://dp37g3bhu221" path="res://Assets/Characters/spider/spider_dead_6.png" id="30_trtur"]
 [ext_resource type="Texture2D" uid="uid://xihegy8er2vl" path="res://Assets/Characters/spider/spider_dead_7.png" id="31_1nrdc"]
 
@@ -175,10 +183,34 @@ animations = [{
 "name": &"bug",
 "speed": 15.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_nc3vj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_pmk3d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_yvcnk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_vg8ig")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_5stxh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_lsltp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_8l4s3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_twm1o")
+}],
 "loop": true,
 "name": &"drone",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
