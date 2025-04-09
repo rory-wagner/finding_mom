@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b4lsq4j31jm0c" path="res://scenes/mob.tscn" id="2_oiylw"]
 [ext_resource type="AudioStream" uid="uid://cw6ry5nsvfxvi" path="res://Assets/Music/gameover.wav" id="3_ww1ux"]
 [ext_resource type="PackedScene" uid="uid://dkb5xls87v012" path="res://scenes/level.tscn" id="3_xn5re"]
-[ext_resource type="AudioStream" uid="uid://d4af63o3546p3" path="res://Assets/Music/game_beat.mp3" id="4_pspge"]
 [ext_resource type="PackedScene" uid="uid://rgkuwjb6bgdc" path="res://scenes/player.tscn" id="5_vuccf"]
+[ext_resource type="AudioStream" uid="uid://b2myfvsftplc7" path="res://Assets/Music/vinyl.wav" id="5_yql13"]
 [ext_resource type="PackedScene" uid="uid://bbmdp63cwku5e" path="res://scenes/hud.tscn" id="6_tiw4t"]
 [ext_resource type="PackedScene" uid="uid://dbdpur6xsrko7" path="res://scenes/pause_menu.tscn" id="7_p2css"]
 
@@ -19,9 +19,10 @@ mob_scene = ExtResource("2_oiylw")
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(1920, 1080)
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_pspge")
-bus = &"Levels"
+[node name="VHSOverlay" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_yql13")
+volume_db = -5.0
+autoplay = true
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ww1ux")
@@ -37,6 +38,7 @@ visible = false
 
 [connection signal="spawn_mob" from="Level" to="." method="_on_level_spawn_mob"]
 [connection signal="spawn_portal" from="Level" to="." method="_on_level_1_spawn_portal"]
+[connection signal="finished" from="VHSOverlay" to="." method="_on_vhs_overlay_finished"]
 [connection signal="entered_portal" from="Player" to="." method="_on_player_entered_portal"]
 [connection signal="freeze_frame" from="Player" to="." method="frame_freeze"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]

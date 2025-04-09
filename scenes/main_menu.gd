@@ -10,6 +10,11 @@ func _input(event: InputEvent):
 		$SkipArea/SkipButtonSprite.play("keyboard")
 	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		$SkipArea/SkipButtonSprite.play("xbox")
+		
+func _process(_delta):
+	var now = Time.get_unix_time_from_system()
+	var new_position = Vector2($MainMenuCanvas/Title.position.x, $MainMenuCanvas/Title.position.y + (sin(now) / 2)) # sin(now) is the rate, dividing lessens the distance
+	$MainMenuCanvas/Title.position = new_position
 
 # here we go through setting up the settings
 func _ready():
