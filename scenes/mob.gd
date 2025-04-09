@@ -156,19 +156,8 @@ func set_player(p):
 	player = p
 
 func _on_bullet_timer_timeout():
-	#TODO: do we need this match statement?
 	if current_state != states.DEAD:
-		match type:
-			"bug":
-				ready_shoot = true
-			"spider":
-				pass
-			"soldier":
-				# mark that the soldier can shoot again, and let the _process function do that
-				ready_shoot = true
-			"drone":
-				ready_shoot = true
-				#TODO: implement
+		ready_shoot = true
 
 func shoot_bullet():
 	var b = Bullet.instantiate()
@@ -181,7 +170,7 @@ func shoot_bullet():
 		"soldier":
 			bt = b.bullet_types.SOLDIER_BULLET
 		"drone":
-			#TODO: implement missile
+			#TODO: implement tracking for the missile
 			bt = b.bullet_types.DRONE_MISSILE
 			#bt = b.bullet_types.PURPLE_BALL
 		_:
