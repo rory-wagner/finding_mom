@@ -9,7 +9,7 @@ func _ready():
 	new_game()
 
 func _process(_delta):
-	if $Player.current_state == $Player.states.DEAD: #TODO: might need to display controls for exiting
+	if $Player.current_state == $Player.states.DEAD:
 		if Input.is_action_just_pressed("pause"):
 			_on_pause_menu_return_menu()
 
@@ -29,7 +29,7 @@ func game_over():
 	$HUD.stop()
 	$Level.stop_spawning()
 	$HUD.show_game_over()
-	$Music.stop()
+	#$Music.stop()#TODO: call level stop_music???
 	$DeathSound.play()
 	
 	$Player.set_is_dead(true)
@@ -45,16 +45,18 @@ func play_next_level():
 
 	$HUD.display_hearts()
 	$HUD.display_bullets()
-	$HUD.next_level()
 	
 	$Player.start($StartPosition.position)
 	$Player.set_is_dead(false)
 	
-	$Level.set_level($HUD.get_level())
+	$Level.next_level()
 	$Level.start_spawning()
 	
+	$HUD.set_level($Level.get_level())
+	$HUD.set_level_length($Level.get_level_length())
+	
 	if music_on:
-		$Music.play()
+		$Level.start_music()
 	
 func _on_player_shoot(bullet, direction, _location):
 	# check to see if Player is alive and has bullets to shoot
@@ -151,3 +153,7 @@ func _on_portal_entered():
 	
 func _on_portal_exited():
 	$Player.portal_on_screen(false)
+
+# simply repeat the VHS vinyl sound
+func _on_vhs_overlay_finished():
+	$VHSOverlay.play()
