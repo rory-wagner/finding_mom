@@ -5,20 +5,17 @@ signal start_game
 signal level_complete
 signal quit_game
 
-@export var total_hearts = 3
-@export var current_health = 3
-
-@export var total_bullets = 3
-@export var current_bullets = 3
-
-@export var current_level = 0
-@export var level_length = 80
-
+var current_level = 0
+var level_length = 30
 var score = 0
 
+@export var total_hearts = 3
+@export var current_health = 3
 var full_heart = load("res://Assets/Icons/heart.png")
 var empty_heart = load("res://Assets/Icons/empty_heart.png")
 
+@export var total_bullets = 3
+@export var current_bullets = 3
 var bullet = load("res://Assets/Bullets/basic_bullet.png")
 var empty_bullet = load("res://Assets/Bullets/basic_empty_bullet.png")
 
@@ -54,16 +51,10 @@ func show_controls():
 	display_control_type("keyboard")
 	$AnimationPlayer.play("controls_dissappear")
 
-func next_level():
-	current_level += 1
+func set_level(l: int):
+	current_level = l
 	$LevelLabel.text = "Level " + String.num_int64(current_level)
 	restart_score()
-	
-func get_level():
-	return current_level
-	
-func restart_level():
-	current_level = 0
 	
 func reset_health():
 	# might need to reset total hearts as well if we end up giving more hearts
@@ -73,7 +64,6 @@ func lose_heart():
 	current_health -= 1
 	display_hearts()
 	if current_health <= 0:
-		restart_level()
 		player_die.emit()
 		$DeathMessageTimer.start()
 		show_message("Game Over")
@@ -160,6 +150,9 @@ func update_score():
 		reset_all_bullets()
 		level_complete.emit()
 		$ScoreLabel.text = "complete"
+		
+func set_level_length(l: int):
+	level_length = l
 
 func _on_score_timer_timeout():
 	score += 1

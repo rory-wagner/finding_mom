@@ -3,10 +3,26 @@ extends Node2D
 
 signal spawn_mob(m: Resource)
 signal spawn_portal(m: Resource)
+signal level_ended() #TODO: see if we need this???
 
 @export var mob_spawn_scene: PackedScene
 @export var mob_scene: PackedScene
 @export var portal_scene: PackedScene
+
+var level_music_lengths = [
+	0,
+	74,
+]
+
+var level_music = [
+	"",
+	"res://Assets/Music/first_encounter_lvl_1.wav",
+]
+
+var level_end_music = [
+	"",
+	"res://Assets/Music/first_encounter_lvl_1_outro_1.wav",
+]
 
 var valid_mob_spawn_locations = []
 
@@ -15,6 +31,18 @@ var current_level: int = 0
 # TODO: use the time from the HUD as a ratio between "beginning" and "end"
 # each of these are the chances out of 100% what mob it might be
 const level_chances = {
+	"0beginning": {
+		"bug" = 0,
+		"soldier" = 0,
+		"spider" = 0,
+		"drone" = 0,
+	},
+	"0end": {
+		"bug" = 0,
+		"soldier" = 0,
+		"spider" = 0,
+		"drone" = 0,
+	},
 	"1beginning": {
 		"bug" = 0,
 		"soldier" = 20,
@@ -127,11 +155,36 @@ func location_exited(n: Node2D):
 func location_entered(n: Node2D):
 	valid_mob_spawn_locations.erase(n)
 	
-func set_level(l: int):
-	current_level = l
-	var layer_string: String = $Background.all_layers[l]
+func next_level():
+	current_level += 1
+	var layer_string: String = $Background.all_layers[current_level]
 	if !$Background.set_layer(layer_string):
-		print("setting layer failed")
+		print("setting layer failed") #TODO: fix
+		
+func get_level():
+	return current_level
+
+# only call after set_level
+# will FAILED if current_level is out of scope
+func get_level_length():
+	if current_level >= len(level_music_lengths):
+		return FAILED
+	return level_music_lengths[current_level]
+
+#will FAILED if current_level is out of scope
+func start_music():
+	if current_level >= len(level_music):
+		return FAILED
+	$Music.stream = load(level_music[current_level])
+	$Music.play()
+
+#will FAILED if current_level is out of scope
+func _on_music_finished():
+	if current_level >= len(level_end_music):
+		return FAILED
+	level_ended.emit()
+	$Music.stream = load(level_end_music[current_level])
+	$Music.play()
 
 func _on_mob_timer_timeout():
 	if enemies_on:
