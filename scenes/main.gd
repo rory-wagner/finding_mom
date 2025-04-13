@@ -53,10 +53,16 @@ func play_next_level():
 	$Level.start_spawning()
 	
 	$HUD.set_level($Level.get_level())
-	$HUD.set_level_length($Level.get_level_length())
+	var level_length = $Level.get_level_length()
+	if level_length != FAILED:
+		$HUD.set_level_length(level_length)
+	else:
+		print("get level failed")
 	
 	if music_on:
-		$Level.start_music()
+		var ok = $Level.start_music()
+		if !ok:
+			print("starting music failed")
 	
 func _on_player_shoot(bullet, direction, _location):
 	# check to see if Player is alive and has bullets to shoot
