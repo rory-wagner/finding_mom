@@ -1,11 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://rgkuwjb6bgdc"]
+[gd_scene load_steps=47 format=3 uid="uid://rgkuwjb6bgdc"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_r8k0x"]
+[ext_resource type="Shader" path="res://scenes/shaders/player.gdshader" id="2_igonk"]
 [ext_resource type="Texture2D" uid="uid://buyr3kd5j0ove" path="res://Assets/Characters/player_character/middle_legs.png" id="2_q014k"]
 [ext_resource type="Texture2D" uid="uid://b86yy5r4lrxh5" path="res://Assets/Characters/player_character/right_legs.png" id="3_mj1ys"]
 [ext_resource type="Texture2D" uid="uid://llmuwojlxvda" path="res://Assets/Characters/player_character/left_legs.png" id="4_na7is"]
 [ext_resource type="Texture2D" uid="uid://dy7bqaqvfh0w5" path="res://Assets/Characters/player_character/parry_1.png" id="5_2b2qh"]
-[ext_resource type="Shader" path="res://scenes/player.gdshader" id="5_6c5ei"]
 [ext_resource type="Texture2D" uid="uid://bry5rkatim6u1" path="res://Assets/Characters/player_character/middle_shoulder.png" id="5_mvej2"]
 [ext_resource type="Texture2D" uid="uid://d46nrymybnyq" path="res://Assets/Characters/player_character/death_1.png" id="5_vvtue"]
 [ext_resource type="Texture2D" uid="uid://w1aeun76lcht" path="res://Assets/Characters/player_character/death_2.png" id="6_4pip0"]
@@ -39,6 +39,10 @@
 radius = 63.0
 height = 168.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8unb6"]
+shader = ExtResource("2_igonk")
+shader_parameter/flash_white_on = false
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_cry5f"]
 animations = [{
 "frames": [{
@@ -67,8 +71,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_egtoi"]
-shader = ExtResource("5_6c5ei")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0dkjo"]
+shader = ExtResource("2_igonk")
+shader_parameter/flash_white_on = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nwkqy"]
 animations = [{
@@ -252,12 +257,13 @@ collision_layer = 5
 collision_mask = 5
 
 [node name="LegsSprite" type="AnimatedSprite2D" parent="Area2D"]
+material = SubResource("ShaderMaterial_8unb6")
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_cry5f")
 animation = &"walk"
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Area2D"]
-material = SubResource("ShaderMaterial_egtoi")
+material = SubResource("ShaderMaterial_0dkjo")
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_nwkqy")
 animation = &"parry"
