@@ -1,7 +1,8 @@
-[gd_scene load_steps=48 format=3 uid="uid://b4lsq4j31jm0c"]
+[gd_scene load_steps=51 format=3 uid="uid://b4lsq4j31jm0c"]
 
 [ext_resource type="Script" path="res://scenes/mob.gd" id="1_uk6uk"]
 [ext_resource type="Texture2D" uid="uid://co4eihc8e5y20" path="res://Assets/Characters/bug/basic_bug.png" id="2_4yvq4"]
+[ext_resource type="Shader" path="res://scenes/shaders/dissolve.gdshader" id="2_bpntt"]
 [ext_resource type="Texture2D" uid="uid://dao871lqfvf7m" path="res://Assets/Characters/bug/basic_bug_2.png" id="3_xmnyx"]
 [ext_resource type="Texture2D" uid="uid://dxwx7hyu022kh" path="res://Assets/Characters/drone/drone_1.png" id="4_745j4"]
 [ext_resource type="Texture2D" uid="uid://b7iqd8gaaurj4" path="res://Assets/Characters/soldier/soldier_walk_1.png" id="4_oiqwj"]
@@ -43,6 +44,16 @@
 [ext_resource type="Texture2D" uid="uid://dk8h744msg4te" path="res://Assets/Characters/drone/drone_death_8.png" id="29_twm1o"]
 [ext_resource type="Texture2D" uid="uid://dp37g3bhu221" path="res://Assets/Characters/spider/spider_dead_6.png" id="30_trtur"]
 [ext_resource type="Texture2D" uid="uid://xihegy8er2vl" path="res://Assets/Characters/spider/spider_dead_7.png" id="31_1nrdc"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_js4xo"]
+load_path = "res://.godot/imported/burn_noise.png-a1a4034108cad3358dd0b093b230356e.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rubij"]
+shader = ExtResource("2_bpntt")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.01
+shader_parameter/burn_color = Color(0.909804, 0.239216, 0.0745098, 1)
+shader_parameter/dissolve_texture = SubResource("CompressedTexture2D_js4xo")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cxtoe"]
 animations = [{
@@ -269,6 +280,7 @@ animations = [{
 script = ExtResource("1_uk6uk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_rubij")
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_cxtoe")
 animation = &"soldier"

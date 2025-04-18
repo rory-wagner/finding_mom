@@ -12,7 +12,6 @@ void vertex() {
 
 // Called for every pixel the material is visible on.
 void fragment() {
-	//COLOR = texture(TEXTURE, UV);
 	if (flash_white_on){
 		vec4 color_of_player_sprite = texture(TEXTURE, UV);
 		if (color_of_player_sprite.a > 0.0) {
