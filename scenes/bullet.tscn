@@ -127,7 +127,9 @@ func _on_body_entered(body):
 		reclaim_bullet()
 
 func bullet_die():
-	$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\" #TODO: check if this fails if there isn't an _explode animation
+	var ending_animation = $AnimatedSprite2D.animation + \"_explode\"
+	if ending_animation in $AnimatedSprite2D.sprite_frames.get_animation_names():
+		$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\"
 
 func _on_animated_sprite_2d_animation_finished():
 	if String($AnimatedSprite2D.animation).ends_with(\"_explode\"):
