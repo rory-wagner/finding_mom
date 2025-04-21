@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal shoot(bullet, direction, location)
 
-@export var use_shaders = true
+@export var use_shaders = false
 
 var type = "soldier"
 
