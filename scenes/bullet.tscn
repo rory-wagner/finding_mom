@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dpww0w0pt1lf1"]
+[gd_scene load_steps=17 format=3 uid="uid://dpww0w0pt1lf1"]
 
 [ext_resource type="Texture2D" uid="uid://ct45ce43stmoh" path="res://Assets/Bullets/purple_circle.png" id="1_6rtsx"]
 [ext_resource type="Texture2D" uid="uid://bssu3lfa5xoud" path="res://Assets/Bullets/missile_1.png" id="1_vg8pk"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://cu0c1553tpnnr" path="res://Assets/Bullets/bomb_4.png" id="6_5xkxm"]
 [ext_resource type="Texture2D" uid="uid://bcgvu7olro314" path="res://Assets/Bullets/explode_4.png" id="6_7lq7i"]
 [ext_resource type="AudioStream" uid="uid://b7b5dv2u3divy" path="res://Assets/Music/FreeSFX/GameSFX/Weapon/Retro Weapon Gun LoFi 03.wav" id="7_e5adb"]
-[ext_resource type="Texture2D" uid="uid://dwqmiip8nrpw7" path="res://Assets/Bullets/bomb_5.png" id="7_uftfh"]
 
 [sub_resource type="GDScript" id="GDScript_f2ymo"]
 script/source = "extends RigidBody2D
@@ -128,7 +127,9 @@ func _on_body_entered(body):
 		reclaim_bullet()
 
 func bullet_die():
-	$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\" #TODO: check if this fails if there isn't an _explode animation
+	var ending_animation = $AnimatedSprite2D.animation + \"_explode\"
+	if ending_animation in $AnimatedSprite2D.sprite_frames.get_animation_names():
+		$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\"
 
 func _on_animated_sprite_2d_animation_finished():
 	if String($AnimatedSprite2D.animation).ends_with(\"_explode\"):
@@ -160,9 +161,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("6_5xkxm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_uftfh")
 }],
 "loop": true,
 "name": &"drone_missile_explode",
@@ -217,7 +215,7 @@ script = SubResource("GDScript_f2ymo")
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_1o8r6")
 animation = &"drone_missile_explode"
-frame_progress = 0.262387
+frame_progress = 0.280913
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

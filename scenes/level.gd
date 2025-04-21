@@ -1,5 +1,4 @@
 extends Node2D
-@export var enemies_on = true
 
 signal spawn_mob(m: Resource)
 signal spawn_portal(m: Resource)
@@ -8,6 +7,13 @@ signal level_ended() #TODO: see if we need this???
 @export var mob_spawn_scene: PackedScene
 @export var mob_scene: PackedScene
 @export var portal_scene: PackedScene
+
+enum enemy_production_type {
+	OFF,
+	CONSTANT,
+	WAVE,
+}
+@export var enemies_on = enemy_production_type.CONSTANT
 
 var level_music_lengths = [
 	0,
@@ -27,6 +33,7 @@ var level_end_music = [
 var valid_mob_spawn_locations = []
 
 var current_level: int = 0
+var wave_amount: int = 0
 
 # TODO: use the time from the HUD as a ratio between "beginning" and "end"
 # each of these are the chances out of 100% what mob it might be
@@ -87,9 +94,11 @@ func _ready():
 	
 func start_spawning():
 	$MobTimer.start()
+	$WaveTimer.start()
 	
 func stop_spawning():
 	$MobTimer.stop()
+	$WaveTimer.stop()
 	
 func end_level(player_location: Vector2):
 	stop_spawning()
@@ -158,8 +167,8 @@ func location_entered(n: Node2D):
 func next_level():
 	current_level += 1
 	var layer_string: String = $Background.all_layers[current_level]
-	if !$Background.set_layer(layer_string):
-		print("setting layer failed") #TODO: fix
+	if $Background.set_layer(layer_string) != OK:
+		print("setting layer failed")
 		
 func get_level():
 	return current_level
@@ -174,30 +183,47 @@ func get_level_length():
 #will FAILED if current_level is out of scope
 func start_music():
 	if current_level >= len(level_music):
+		print("failed to retrieve level_music")
 		return FAILED
 	$Music.stream = load(level_music[current_level])
 	$Music.play()
+	return OK
 
 #will FAILED if current_level is out of scope
 func _on_music_finished():
 	if current_level >= len(level_end_music):
+		print("failed to retrieve level_end_music")
 		return FAILED
 	level_ended.emit()
 	$Music.stream = load(level_end_music[current_level])
 	$Music.play()
+	return OK
+	
+func create_mob():
+	# Create a new instance of the Mob scene.
+	var mob: Node = mob_scene.instantiate()
+	# select a random spawn location from the valid list
+	var n: Node2D = valid_mob_spawn_locations[randi_range(0, len(valid_mob_spawn_locations)  - 1)]
+	mob.position = n.position
+
+	var type: String = get_mob_type_from_level()
+	mob.set_type(type)
+
+	spawn_mob.emit(mob)
 
 func _on_mob_timer_timeout():
-	if enemies_on:
-		# Create a new instance of the Mob scene.
-		var mob: Node = mob_scene.instantiate()
-		# select a random spawn location from the valid list
-		var n: Node2D = valid_mob_spawn_locations[randi_range(0, len(valid_mob_spawn_locations)  - 1)]
-		mob.position = n.position
+	match enemies_on:
+		enemy_production_type.OFF:
+			pass
+		enemy_production_type.CONSTANT:
+			create_mob()
+		enemy_production_type.WAVE:
+			wave_amount += 1
 
-		var type: String = get_mob_type_from_level()
-		mob.set_type(type)
-
-		spawn_mob.emit(mob)
+func _on_wave_timer_timeout():
+	for i in wave_amount:
+		create_mob()
+	wave_amount = 0
 
 func get_mob_type_from_level() -> String:
 	var chances = level_chances[String.num_int64(current_level)+"beginning"]

@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 signal shoot(bullet, direction, location)
 
+@export var use_shaders = false
+
 var type = "soldier"
 
 var available_mob_types = [
@@ -19,8 +21,8 @@ enum states {
 }
 
 var current_state = states.MOVE
-
 var ready_shoot = true
+var burn_value = 0.9
 
 var Bullet = preload("res://scenes/bullet.tscn")
 
@@ -57,7 +59,15 @@ func _process(_delta):
 			move_soldier()
 		"drone":
 			move_drone()
-	pass
+	if current_state == states.DEAD:
+		update_burn_value()
+
+func update_burn_value():
+	burn_value = burn_value - 0.01
+	$AnimatedSprite2D.material.set_shader_parameter("dissolve_value", burn_value)
+	# once burn_value hits 0.0, dequeue
+	if burn_value <= 0.0:
+		_on_dead_sprites_animation_finished()
 	
 func move_bug():
 	if ready_shoot == true:
@@ -202,11 +212,23 @@ func change_living_texture(animation, repeat):
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player_bullets"):
-		$AnimatedSprite2D.stop()
-		$AnimatedSprite2D.hide()
-		$DeadSprites.look_at(player.position)
-		$DeadSprites.show()
-		$DeadSprites.play(type)
+		if use_shaders:
+			# Get the material from the node
+			var original_material = $AnimatedSprite2D.material
+			# Duplicate the material AND make sure it's a new ShaderMaterial instance
+			var unique_material = original_material.duplicate()
+			unique_material.set_shader(original_material.shader)
+			# Apply it back to just this node
+			$AnimatedSprite2D.material = unique_material
+			# Now change your shader param safely
+			$AnimatedSprite2D.material.set_shader_parameter("dissolve_value", burn_value)
+		else:
+			$AnimatedSprite2D.stop()
+			$AnimatedSprite2D.hide()
+			$DeadSprites.look_at(player.position)
+			$DeadSprites.show()
+			$DeadSprites.play(type)
+
 		current_state = states.DEAD
 		# remove from both layers of collision
 		collision_layer = 0

@@ -1,11 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://rgkuwjb6bgdc"]
+[gd_scene load_steps=47 format=3 uid="uid://rgkuwjb6bgdc"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_r8k0x"]
+[ext_resource type="Shader" path="res://scenes/shaders/flash.gdshader" id="2_igonk"]
 [ext_resource type="Texture2D" uid="uid://buyr3kd5j0ove" path="res://Assets/Characters/player_character/middle_legs.png" id="2_q014k"]
 [ext_resource type="Texture2D" uid="uid://b86yy5r4lrxh5" path="res://Assets/Characters/player_character/right_legs.png" id="3_mj1ys"]
 [ext_resource type="Texture2D" uid="uid://llmuwojlxvda" path="res://Assets/Characters/player_character/left_legs.png" id="4_na7is"]
 [ext_resource type="Texture2D" uid="uid://dy7bqaqvfh0w5" path="res://Assets/Characters/player_character/parry_1.png" id="5_2b2qh"]
-[ext_resource type="Shader" path="res://scenes/player.gdshader" id="5_6c5ei"]
 [ext_resource type="Texture2D" uid="uid://bry5rkatim6u1" path="res://Assets/Characters/player_character/middle_shoulder.png" id="5_mvej2"]
 [ext_resource type="Texture2D" uid="uid://d46nrymybnyq" path="res://Assets/Characters/player_character/death_1.png" id="5_vvtue"]
 [ext_resource type="Texture2D" uid="uid://w1aeun76lcht" path="res://Assets/Characters/player_character/death_2.png" id="6_4pip0"]
@@ -30,14 +30,18 @@
 [ext_resource type="Texture2D" uid="uid://gsb30bpvhfbv" path="res://Assets/Characters/player_character/dive_9.png" id="16_gqerw"]
 [ext_resource type="Texture2D" uid="uid://chdvhau1456ir" path="res://Assets/Characters/player_character/dive_10.png" id="17_heagj"]
 [ext_resource type="Texture2D" uid="uid://dnroqwl4p83p6" path="res://Assets/Characters/player_character/dive_11.png" id="18_5ojxi"]
-[ext_resource type="Texture2D" uid="uid://cp24404xcrc4g" path="res://Assets/Characters/player_character/robot_shoot_3.png" id="22_rmrwh"]
-[ext_resource type="Texture2D" uid="uid://bececk7h7ntla" path="res://Assets/Characters/player_character/robot_shoot_2.png" id="23_vxcjv"]
-[ext_resource type="Texture2D" uid="uid://cm3y0qwj0l3cu" path="res://Assets/Characters/player_character/robot_shoot_1.png" id="24_cbs7v"]
+[ext_resource type="Texture2D" uid="uid://clddveyjekk3c" path="res://Assets/Characters/player_character/shoot_1.png" id="27_n7cws"]
+[ext_resource type="Texture2D" uid="uid://cms51geythps7" path="res://Assets/Characters/player_character/shoot_2.png" id="28_bt12y"]
+[ext_resource type="Texture2D" uid="uid://c6gtwwm872yjk" path="res://Assets/Characters/player_character/shoot_3.png" id="29_5cv8k"]
 [ext_resource type="Texture2D" uid="uid://c3gsqtlbd6v4d" path="res://Assets/Icons/pointing_hand.png" id="33_s1b6r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5b52"]
 radius = 63.0
 height = 168.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8unb6"]
+shader = ExtResource("2_igonk")
+shader_parameter/flash_white_on = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cry5f"]
 animations = [{
@@ -67,8 +71,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_egtoi"]
-shader = ExtResource("5_6c5ei")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0dkjo"]
+shader = ExtResource("2_igonk")
+shader_parameter/flash_white_on = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nwkqy"]
 animations = [{
@@ -152,7 +157,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("23_vxcjv")
+"texture": ExtResource("28_bt12y")
 }],
 "loop": true,
 "name": &"shoot_stand",
@@ -160,16 +165,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("22_rmrwh")
+"texture": ExtResource("27_n7cws")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_vxcjv")
+"texture": ExtResource("28_bt12y")
 }, {
 "duration": 1.0,
-"texture": ExtResource("24_cbs7v")
+"texture": ExtResource("29_5cv8k")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_vxcjv")
+"texture": ExtResource("28_bt12y")
 }],
 "loop": true,
 "name": &"shoot_walk",
@@ -252,15 +257,17 @@ collision_layer = 5
 collision_mask = 5
 
 [node name="LegsSprite" type="AnimatedSprite2D" parent="Area2D"]
+visible = false
+material = SubResource("ShaderMaterial_8unb6")
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_cry5f")
 animation = &"walk"
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Area2D"]
-material = SubResource("ShaderMaterial_egtoi")
+material = SubResource("ShaderMaterial_0dkjo")
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_nwkqy")
-animation = &"parry"
+animation = &"walk"
 
 [node name="RightSide" type="Marker2D" parent="Area2D/BodySprite"]
 position = Vector2(0, 15)

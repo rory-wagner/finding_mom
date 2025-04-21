@@ -269,19 +269,31 @@ func set_is_dead(d: bool):
 
 func _on_invulnerable_timer_timeout():
 	$VisibilityFlashTimer.stop()
+	# reset collisions
 	set_collisions(5)
-	$Area2D/BodySprite.modulate = Color(1, 1, 1, 1)
-	$Area2D/LegsSprite.modulate = Color(1, 1, 1, 1)
-	show_flash = true
+	
+	# old way of resetting transparency
+	#$Area2D/BodySprite.modulate = Color(1, 1, 1, 1)
+	#$Area2D/LegsSprite.modulate = Color(1, 1, 1, 1)
+	
+	show_flash = false
+	$Area2D/BodySprite.material.set_shader_parameter("flash_white_on", show_flash)
+	$Area2D/LegsSprite.material.set_shader_parameter("flash_white_on", show_flash)
 	
 func _on_visibility_flash_timer_timeout():
 	show_flash = !show_flash
+	$Area2D/BodySprite.material.set_shader_parameter("flash_white_on", show_flash)
+	$Area2D/LegsSprite.material.set_shader_parameter("flash_white_on", show_flash)
+
+# currently unused (might use if we like transparency shifts more)
+func flash_transparency():
 	if show_flash:
 		$Area2D/BodySprite.modulate = Color(1, 1, 1, 1)
 		$Area2D/LegsSprite.modulate = Color(1, 1, 1, 1)
 	else:
 		$Area2D/BodySprite.modulate = Color(1, 1, 1, 0.6)
 		$Area2D/LegsSprite.modulate = Color(1, 1, 1, 0.2)
+	pass
 
 # emit the music note to the game
 func _on_music_note_timer_timeout():

@@ -36,9 +36,11 @@ animations = [{
 script = ExtResource("1_l5l8x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(4, 4)
+scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_g8kni")
 animation = &"spin"
+frame = 2
+frame_progress = 0.0275359
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(5, 5)

@@ -23,19 +23,22 @@ position = Vector2(-2351, -721)
 position = Vector2(6109, 3803)
 
 [node name="PortalSpawnLocation" parent="." instance=ExtResource("3_m377v")]
-position = Vector2(-770, 313)
+position = Vector2(-774, 312)
 
 [node name="PortalSpawnLocation2" parent="." instance=ExtResource("3_m377v")]
-position = Vector2(3327, 237)
+position = Vector2(3324, 234)
 
 [node name="PortalSpawnLocation3" parent="." instance=ExtResource("3_m377v")]
-position = Vector2(208, 2426)
+position = Vector2(210, 2424)
 
 [node name="PortalSpawnLocation4" parent="." instance=ExtResource("3_m377v")]
-position = Vector2(4326, 2344)
+position = Vector2(4326, 2346)
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 15.0
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStream_5aw2f")
@@ -43,4 +46,5 @@ mix_target = 1
 bus = &"Levels"
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
 [connection signal="finished" from="Music" to="." method="_on_music_finished"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bececk7h7ntla"
-path="res://.godot/imported/robot_shoot_2.png-6314b6f67d865b987cb93b388adf02e1.ctex"
+uid="uid://c6gtwwm872yjk"
+path="res://.godot/imported/shoot_3.png-cfe10405ed559aacf4dbc290edb062a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/player_character/robot_shoot_2.png"
-dest_files=["res://.godot/imported/robot_shoot_2.png-6314b6f67d865b987cb93b388adf02e1.ctex"]
+source_file="res://Assets/Characters/player_character/shoot_3.png"
+dest_files=["res://.godot/imported/shoot_3.png-cfe10405ed559aacf4dbc290edb062a5.ctex"]
 
 [params]
 
