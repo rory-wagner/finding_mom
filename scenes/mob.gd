@@ -22,7 +22,7 @@ enum states {
 
 var current_state = states.MOVE
 var ready_shoot = true
-var burn_value = 0.9
+var burn_value = 1.0
 
 var Bullet = preload("res://scenes/bullet.tscn")
 
@@ -59,7 +59,7 @@ func _process(_delta):
 			move_soldier()
 		"drone":
 			move_drone()
-	if current_state == states.DEAD:
+	if current_state == states.DEAD and use_shaders:
 		update_burn_value()
 
 func update_burn_value():

@@ -15,7 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://b7b5dv2u3divy" path="res://Assets/Music/FreeSFX/GameSFX/Weapon/Retro Weapon Gun LoFi 03.wav" id="7_e5adb"]
 
 [sub_resource type="GDScript" id="GDScript_f2ymo"]
-script/source = "extends RigidBody2D
+script/source = "extends CharacterBody2D
 
 signal player_bullet_dequeue
 
@@ -36,7 +36,8 @@ const player_bullet := \"soldier_bullet\"
 const drone_missile := \"drone_missile\"
 
 func _ready():
-	gravity_scale = 0.0
+	#gravity_scale = 0.0
+	pass
 	
 func set_is_enemy_bullet():
 	add_to_group(\"enemy_bullets\")
@@ -81,24 +82,24 @@ func set_direction(d):
 	direction = d
 	# take care of multiplying by bullet_speed
 	var v = get_bullet_speed()
-	linear_velocity = v.rotated(direction)
+	velocity = v.rotated(direction)
 	
 func get_bullet_speed():
 	var s
 	match current_bullet:
 		bullet_types.PURPLE_BALL:
-			s = Vector2(800.0, 0.0)
+			s = Vector2(12.0, 0.0)
 		bullet_types.SOLDIER_BULLET:
-			s = Vector2(1500.0, 0.0)
+			s = Vector2(24.0, 0.0)
 		bullet_types.PLAYER_BULLET:
-			s = Vector2(2000.0, 0.0)
+			s = Vector2(27.0, 0.0)
 		bullet_types.DRONE_MISSILE:
-			s = Vector2(800.0, 0.0)
+			s = Vector2(12.0, 0.0)
 	return s
 
 func _process(_delta):
 	#apply_force(direction, position) # use this for speeding up TODO might use for a tracking projectile
-	
+	move_and_collide(velocity)
 	#keeps the bullet facing the direction it is moving
 	rotation = direction
 
@@ -115,20 +116,18 @@ func parried():
 # The bullet cannot detect when it has hit a body. So we call this when the body detects the bullet.
 func collide_with_target():
 	bullet_die()
-	reclaim_bullet()
+	
 	#BUG TODO: sometimes, a bullet can collide with the player and then be parried by the player
 	#remove from other collisions:
 	collision_layer = 0
+	
 	#stop movement
-	linear_velocity = Vector2(0,0)
-
-func _on_body_entered(body):
-	if body.is_in_group(\"enemies\"): # coverage for parried bullets TODO: check if this creates a bug where enemy bullets reclaim player bullets
-		reclaim_bullet()
+	velocity = Vector2(0,0)
 
 func bullet_die():
 	var ending_animation = $AnimatedSprite2D.animation + \"_explode\"
 	if ending_animation in $AnimatedSprite2D.sprite_frames.get_animation_names():
+		reclaim_bullet()
 		$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\"
 
 func _on_animated_sprite_2d_animation_finished():
@@ -204,18 +203,15 @@ animations = [{
 radius = 5.6
 height = 24.0
 
-[node name="Bullet" type="RigidBody2D" groups=["bullets"]]
+[node name="Bullet" type="CharacterBody2D" groups=["bullets"]]
 collision_layer = 0
 collision_mask = 0
-max_contacts_reported = 1000
-contact_monitor = true
 script = SubResource("GDScript_f2ymo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_1o8r6")
-animation = &"drone_missile_explode"
-frame_progress = 0.280913
+animation = &"soldier_bullet"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -228,7 +224,5 @@ shape = SubResource("CapsuleShape2D_r4s7c")
 stream = ExtResource("7_e5adb")
 volume_db = -8.0
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="reclaim_bullet"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="bullet_die"]
