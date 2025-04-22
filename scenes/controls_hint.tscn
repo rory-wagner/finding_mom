@@ -764,6 +764,7 @@ sprite_frames = SubResource("SpriteFrames_p23vy")
 animation = &"keyboard"
 
 [node name="ReloadControlSprite" type="AnimatedSprite2D" parent="ReferenceRect"]
+visible = false
 position = Vector2(-325, -150)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_f36ap")

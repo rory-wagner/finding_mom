@@ -9,7 +9,7 @@ func display_control_type(ct: String):
 	$ReferenceRect/ParryControlSprite.play(ct)
 	$ReferenceRect/RollControlSprite.play(ct)
 	$ReferenceRect/MoveControlSprite.play(ct)
-	$ReferenceRect/ReloadControlSprite.play(ct)
+	#$ReferenceRect/ReloadControlSprite.play(ct)
 	return OK
 
 func start_modulate():

@@ -116,25 +116,23 @@ func parried():
 # The bullet cannot detect when it has hit a body. So we call this when the body detects the bullet.
 func collide_with_target():
 	bullet_die()
-	reclaim_bullet()
+	
 	#BUG TODO: sometimes, a bullet can collide with the player and then be parried by the player
 	#remove from other collisions:
 	collision_layer = 0
+	
 	#stop movement
 	velocity = Vector2(0,0)
 
 func bullet_die():
 	var ending_animation = $AnimatedSprite2D.animation + \"_explode\"
 	if ending_animation in $AnimatedSprite2D.sprite_frames.get_animation_names():
+		reclaim_bullet()
 		$AnimatedSprite2D.animation = $AnimatedSprite2D.animation + \"_explode\"
 
 func _on_animated_sprite_2d_animation_finished():
 	if String($AnimatedSprite2D.animation).ends_with(\"_explode\"):
 		queue_free()
-
-func _on_area_2d_body_entered(body):
-	if body.is_in_group(\"enemies\"): # coverage for parried bullets TODO: check if this creates a bug where enemy bullets reclaim player bullets
-		reclaim_bullet()
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1o8r6"]
@@ -226,14 +224,5 @@ shape = SubResource("CapsuleShape2D_r4s7c")
 stream = ExtResource("7_e5adb")
 volume_db = -8.0
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-rotation = 1.5708
-scale = Vector2(2.5, 2.5)
-shape = SubResource("CapsuleShape2D_r4s7c")
-
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="reclaim_bullet"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="bullet_die"]

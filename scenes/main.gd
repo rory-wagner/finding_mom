@@ -73,7 +73,7 @@ func _on_player_shoot(bullet, direction, _location):
 		add_child(bullet)
 		bullet.play_sound()
 		# TODO: Do we always want the bullet to automatically reset? We now have reloading finished remove this???
-		#bullet.player_bullet_dequeue.connect(_on_player_bullet_dequeue)
+		bullet.player_bullet_dequeue.connect(_on_player_bullet_dequeue)
 		
 func _on_player_music_note(note):
 	add_child(note)
