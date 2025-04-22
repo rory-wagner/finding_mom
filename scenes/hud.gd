@@ -22,7 +22,6 @@ var empty_bullet = load("res://Assets/Bullets/basic_empty_bullet.png")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	show_controls()
-	pass
 
 # will handle event input
 func _input(event: InputEvent):	
@@ -34,10 +33,9 @@ func _input(event: InputEvent):
 		
 		
 func display_control_type(ct: String):
-	$ControlsArea/ShootControlSprite.play(ct)
-	$ControlsArea/ParryControlSprite.play(ct)
-	$ControlsArea/RollControlSprite.play(ct)
-	$ControlsArea/MoveControlSprite.play(ct)
+	var ok = $ControlsHint.display_control_type(ct)
+	if ok != OK:
+		print("failed to switch controller type")
 
 func show_message(text):
 	$ScoreLabel.text = text
@@ -47,9 +45,9 @@ func show_game_over():
 	show_message("game over")
 	
 func show_controls():
-	$ControlsArea.show()
+	$ControlsHint.show()
 	display_control_type("keyboard")
-	$AnimationPlayer.play("controls_dissappear")
+	$ControlsHint.start_modulate()
 
 func set_level(l: int):
 	current_level = l

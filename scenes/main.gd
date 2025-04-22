@@ -61,7 +61,7 @@ func play_next_level():
 	
 	if music_on:
 		var ok = $Level.start_music()
-		if !ok:
+		if ok != OK:
 			print("starting music failed")
 	
 func _on_player_shoot(bullet, direction, _location):
@@ -72,7 +72,8 @@ func _on_player_shoot(bullet, direction, _location):
 		bullet.set_is_player_bullet()
 		add_child(bullet)
 		bullet.play_sound()
-		bullet.player_bullet_dequeue.connect(_on_player_bullet_dequeue)
+		# TODO: Do we always want the bullet to automatically reset? We now have reloading finished remove this???
+		#bullet.player_bullet_dequeue.connect(_on_player_bullet_dequeue)
 		
 func _on_player_music_note(note):
 	add_child(note)
@@ -163,3 +164,8 @@ func _on_portal_exited():
 # simply repeat the VHS vinyl sound
 func _on_vhs_overlay_finished():
 	$VHSOverlay.play()
+
+func _on_player_reload():
+	#reset bullets in the HUD
+	# TODO: see if we want a delay, a reload one by one, or any other types of reloads
+	$HUD.reset_all_bullets()

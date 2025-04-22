@@ -1,11 +1,12 @@
 extends CharacterBody2D 
 
 # ---all signals we emit---
-signal hit
-signal shoot(bullet: Resource, direction: float, location: Vector2)
 signal entered_portal
-signal music_note(note)
 signal freeze_frame(timeScale: float, duration: float)
+signal hit
+signal music_note(note)
+signal reload
+signal shoot(bullet: Resource, direction: float, location: Vector2)
 
 # ---all variables needed---
 @export var speed: float = 30000 # How fast the player will move (pixels/sec).
@@ -168,7 +169,7 @@ func _process(delta):
 
 		# check current state and see what actions we can take
 		match current_state:
-			states.MOVE, states.SHOOT: # can shoot, parry, and roll
+			states.MOVE, states.SHOOT: # can shoot, parry, roll, and reload
 				if Input.is_action_just_pressed("shoot"):
 					current_state = states.SHOOT
 					shoot_bullet(cursor_position)
@@ -178,7 +179,9 @@ func _process(delta):
 				if Input.is_action_just_pressed("roll"):
 					current_state = states.ROLL
 					roll()
-			states.PARRY: # can do ???
+				if Input.is_action_just_pressed("reload"):
+					reload_bullets()
+			states.PARRY: # can do anything?
 				pass
 			states.ROLL: # cannot parry or shoot
 				# change the body facing direction if we are currently rolling:
@@ -188,9 +191,13 @@ func _process(delta):
 			states.DEAD: # cannot do anything
 				pass
 	portal_process()
+	
+# emit a reload signal which will allow the player to shoot again
+func reload_bullets():
+	reload.emit()
 
 # will handle event input
-func _input(event):	
+func _input(event):
 	# see if the mouse moved to display mouse and hide cursor:
 	if event is InputEventMouseMotion:
 		mouse_moved = true

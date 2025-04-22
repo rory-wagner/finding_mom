@@ -43,6 +43,7 @@ visible = false
 [connection signal="freeze_frame" from="Player" to="." method="frame_freeze"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="music_note" from="Player" to="." method="_on_player_music_note"]
+[connection signal="reload" from="Player" to="." method="_on_player_reload"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="level_complete" from="HUD" to="." method="_on_hud_level_complete"]
 [connection signal="player_die" from="HUD" to="." method="_on_hud_player_die"]
