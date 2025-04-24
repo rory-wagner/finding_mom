@@ -8,6 +8,8 @@ var selectedVolume := 0.0
 
 var config = ConfigFile.new()
 
+var SettingsFile := "user://settings.cfg"
+
 func _ready():
 	pass
 
@@ -48,10 +50,10 @@ func save_config(resolution, viewport_mode, master_volume):
 	config.set_value("Settings", "resolution", resolution)
 	config.set_value("Settings", "viewport_mode", viewport_mode)
 	config.set_value("Settings", "master_volume", master_volume)
-	config.save("./settings.cfg")
+	config.save(SettingsFile)
 	
 func load_settings():
-	var err = config.load("./settings.cfg")
+	var err = config.load(SettingsFile)
 	if err != OK:
 		print("failed to load settings from settings.cfg.\nDoes it exist?")
 		return
