@@ -179,7 +179,7 @@ func _process(delta):
 				if Input.is_action_just_pressed("roll"):
 					current_state = states.ROLL
 					roll()
-				#TODO: maybe remove if we don't want reloading?
+				#TODO: maybe remove if we don't want reloading? (make sure to remove all reloading functionality)
 				#if Input.is_action_just_pressed("reload"):
 					#reload_bullets()
 			states.PARRY: # can do anything?
