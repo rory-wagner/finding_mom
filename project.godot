@@ -14,9 +14,10 @@ config/name="Robot Game"
 config/version="1.0"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
+boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/image="res://Assets/WagnerGaming/wagner_gaming_icon.png"
 config/icon="res://Assets/Icons/Finding_Mom_4k.png"
-boot_splash/minimum_display_time=3000
+boot_splash/minimum_display_time=5000
 
 [audio]
 
