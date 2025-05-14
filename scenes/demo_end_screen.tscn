@@ -122,7 +122,7 @@ focus_next = NodePath("../../DiscordSprite/LinkButton")
 focus_previous = NodePath("../../GameJoltSprite/LinkButton")
 theme_override_fonts/font = ExtResource("3_4qqxo")
 theme_override_font_sizes/font_size = 64
-uri = "https://discord.gg/pjTBpa9H"
+uri = "https://store.steampowered.com/app/3560500/Finding_Mom/"
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="ReferenceRect/SteamSprite"]
@@ -160,7 +160,7 @@ focus_next = NodePath("../../ItchSprite/LinkButton")
 focus_previous = NodePath("../../SteamSprite/LinkButton")
 theme_override_fonts/font = ExtResource("3_4qqxo")
 theme_override_font_sizes/font_size = 64
-uri = "https://discord.gg/pjTBpa9H"
+uri = "https://discord.gg/Qd23RJSPZh"
 
 [node name="Label" type="Label" parent="ReferenceRect/DiscordSprite"]
 anchors_preset = 7
@@ -202,7 +202,7 @@ focus_next = NodePath("../../GameJoltSprite/LinkButton")
 focus_previous = NodePath("../../DiscordSprite/LinkButton")
 theme_override_fonts/font = ExtResource("3_4qqxo")
 theme_override_font_sizes/font_size = 64
-uri = "https://discord.gg/pjTBpa9H"
+uri = "https://wagnergaming.itch.io/finding-mom"
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="ReferenceRect/ItchSprite"]
@@ -245,7 +245,7 @@ focus_next = NodePath("../../SteamSprite/LinkButton")
 focus_previous = NodePath("../../ItchSprite/LinkButton")
 theme_override_fonts/font = ExtResource("3_4qqxo")
 theme_override_font_sizes/font_size = 64
-uri = "https://discord.gg/pjTBpa9H"
+uri = "https://gamejolt.com/@Wagner_Gaming"
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="ReferenceRect/GameJoltSprite"]
