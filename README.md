@@ -16,4 +16,4 @@ Clone this repo.
 
 If you aren't familiar with Godot/GdScript, please take a look at their official [demo projects](https://docs.godotengine.org/en/stable/getting_started/introduction/index.html) before continuing.
 
-Please join the [Discord Server](https://discord.gg/79wPtAxKJv) and let me, @Rory Wagner, know you are willing to contribute and I'll assign you permissions.
+Please join the [Discord Server](https://discord.gg/Qd23RJSPZh) and let me, @Rory Wagner, know you are willing to contribute and I'll assign you permissions.
