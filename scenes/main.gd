@@ -48,6 +48,7 @@ func play_next_level():
 	
 	$Player.start($StartPosition.position)
 	$Player.set_is_dead(false)
+	$Player.show() # solves not showing player if came from previous level
 	
 	$Level.next_level()
 	$Level.start_spawning()
@@ -121,6 +122,13 @@ func _on_hud_level_complete():
 	#TODO: stop current music and play level complete sound?
 
 func _on_player_entered_portal():
+	# start portal timer
+	$PortalEnteredTimer.start()
+	# TODO: play some sort of animation to show that the player has teleported, turn off controls, and turn off emits. IDEA: create a new player state called DISABLED
+	$Player.hide()
+	
+
+func _on_portal_entered_timer_timeout():
 	# TODO: on full release, remove this
 	if is_demoing:
 		var demo_end_screen = preload("res://scenes/demo_end_screen.tscn")

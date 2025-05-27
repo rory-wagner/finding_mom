@@ -23,10 +23,11 @@ position = Vector2(1920, 1080)
 stream = ExtResource("5_yql13")
 volume_db = -5.0
 autoplay = true
+bus = &"SFX"
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ww1ux")
-bus = &"Levels"
+bus = &"SFX"
 
 [node name="Player" parent="." instance=ExtResource("5_vuccf")]
 position = Vector2(1920, 1080)
@@ -35,6 +36,9 @@ position = Vector2(1920, 1080)
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_p2css")]
 visible = false
+
+[node name="PortalEnteredTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="spawn_mob" from="Level" to="." method="_on_level_spawn_mob"]
 [connection signal="spawn_portal" from="Level" to="." method="_on_level_1_spawn_portal"]
@@ -51,3 +55,4 @@ visible = false
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="resume" from="PauseMenu" to="." method="_on_pause_menu_resume"]
 [connection signal="return_menu" from="PauseMenu" to="." method="_on_pause_menu_return_menu"]
+[connection signal="timeout" from="PortalEnteredTimer" to="." method="_on_portal_entered_timer_timeout"]

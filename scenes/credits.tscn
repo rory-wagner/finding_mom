@@ -95,7 +95,12 @@ artist - Jocelyn Hawkes
 music
 director - rory wagner
 
-artist - Thomas Murray"
+artist - Thomas Murray
+
+
+
+Testing
+qa - Payton Pehrson"
 
 [node name="ExitTimer" type="Timer" parent="."]
 wait_time = 3.0

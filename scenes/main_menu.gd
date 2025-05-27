@@ -7,8 +7,10 @@ var focused_node: Control
 func _input(event: InputEvent):
 	# see if the mouse moved to display mouse and hide cursor:
 	if event is InputEventMouseMotion or event is InputEventMouseButton or event is InputEventKey:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		$SkipArea/SkipButtonSprite.play("keyboard")
 	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		$SkipArea/SkipButtonSprite.play("xbox")
 		
 func _process(_delta):
@@ -18,7 +20,6 @@ func _process(_delta):
 
 # here we go through setting up the settings
 func _ready():
-	$SettingsMenu.load_settings()
 	$SettingsMenu.apply_settings()
 	$MainMenuCanvas/ReferenceRect/PLAY_BUTTON.grab_focus()
 	focused_node = $MainMenuCanvas/ReferenceRect/PLAY_BUTTON

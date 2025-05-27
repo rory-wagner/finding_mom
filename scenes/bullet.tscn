@@ -223,6 +223,7 @@ shape = SubResource("CapsuleShape2D_r4s7c")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_e5adb")
 volume_db = -8.0
+bus = &"SFX"
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="bullet_die"]

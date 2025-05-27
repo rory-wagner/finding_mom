@@ -44,9 +44,9 @@ offset_bottom = 85.0
 grow_horizontal = 0
 grow_vertical = 2
 focus_neighbor_left = NodePath("../ApplyButton")
-focus_neighbor_top = NodePath("../../ViewportOptions")
+focus_neighbor_top = NodePath("../../SFXVolumeSlider")
 focus_neighbor_right = NodePath("../ApplyButton")
-focus_neighbor_bottom = NodePath("../../ViewportOptions")
+focus_neighbor_bottom = NodePath("../../MasterVolumeSlider")
 focus_next = NodePath("../../ResolutionOptions")
 focus_previous = NodePath("../ApplyButton")
 theme_override_fonts/font = ExtResource("2_dj67t")
@@ -68,28 +68,29 @@ focus_neighbor_top = NodePath("../../ResolutionOptions")
 focus_neighbor_right = NodePath("../BackButton")
 focus_neighbor_bottom = NodePath("../../ResolutionOptions")
 focus_next = NodePath("../BackButton")
-focus_previous = NodePath("../../ViewportOptions")
+focus_previous = NodePath("../../SFXVolumeSlider")
 theme_override_fonts/font = ExtResource("2_dj67t")
 theme_override_font_sizes/font_size = 64
+disabled = true
 action_mode = 0
 text = "apply
 "
 
 [node name="ResolutionLabel" type="Label" parent="."]
-offset_left = 664.0
-offset_top = 806.0
-offset_right = 1064.0
-offset_bottom = 886.0
+offset_left = 730.0
+offset_top = 777.0
+offset_right = 1130.0
+offset_bottom = 857.0
 theme_override_fonts/font = ExtResource("2_dj67t")
 theme_override_font_sizes/font_size = 64
 text = "Resolution"
 
 [node name="ResolutionOptions" type="OptionButton" parent="."]
-offset_left = 664.0
-offset_top = 926.0
-offset_right = 1264.0
-offset_bottom = 1026.0
-focus_neighbor_left = NodePath("../ViewportOptions")
+offset_left = 730.0
+offset_top = 897.0
+offset_right = 1330.0
+offset_bottom = 997.0
+focus_neighbor_left = NodePath("../MasterVolumeSlider")
 focus_neighbor_top = NodePath("../ReferenceRect/ApplyButton")
 focus_neighbor_right = NodePath("../ViewportOptions")
 focus_neighbor_bottom = NodePath("../ReferenceRect/ApplyButton")
@@ -111,24 +112,24 @@ popup/item_4/text = "1152 X 648"
 popup/item_4/id = 4
 
 [node name="ViewportModeLabel" type="Label" parent="."]
-offset_left = 1564.0
-offset_top = 806.0
-offset_right = 1764.0
-offset_bottom = 886.0
+offset_left = 1630.0
+offset_top = 777.0
+offset_right = 1830.0
+offset_bottom = 857.0
 theme_override_fonts/font = ExtResource("2_dj67t")
 theme_override_font_sizes/font_size = 64
 text = "Mode"
 
 [node name="ViewportOptions" type="OptionButton" parent="."]
-offset_left = 1564.0
-offset_top = 926.0
-offset_right = 2264.0
-offset_bottom = 1026.0
+offset_left = 1630.0
+offset_top = 897.0
+offset_right = 2330.0
+offset_bottom = 997.0
 focus_neighbor_left = NodePath("../ResolutionOptions")
 focus_neighbor_top = NodePath("../ReferenceRect/BackButton")
-focus_neighbor_right = NodePath("../VolumeSlider")
+focus_neighbor_right = NodePath("../MasterVolumeSlider")
 focus_neighbor_bottom = NodePath("../ReferenceRect/BackButton")
-focus_next = NodePath("../VolumeSlider")
+focus_next = NodePath("../MasterVolumeSlider")
 focus_previous = NodePath("../ResolutionOptions")
 theme_override_fonts/font = ExtResource("2_dj67t")
 theme_override_font_sizes/font_size = 64
@@ -145,26 +146,49 @@ popup/item_3/id = 3
 popup/item_4/text = "Exclusive Fullscreen"
 popup/item_4/id = 4
 
-[node name="VolumeLabel" type="Label" parent="."]
-offset_left = 2552.0
-offset_top = 806.0
-offset_right = 2775.0
-offset_bottom = 886.0
+[node name="MasterVolumeLabel" type="Label" parent="."]
+offset_left = 2613.0
+offset_top = 777.0
+offset_right = 3075.0
+offset_bottom = 857.0
 theme_override_fonts/font = ExtResource("2_dj67t")
 theme_override_font_sizes/font_size = 64
-text = "Volume"
+text = "Master Volume"
 
-[node name="VolumeSlider" type="HSlider" parent="."]
-offset_left = 2552.0
-offset_top = 950.0
-offset_right = 2990.0
-offset_bottom = 966.0
+[node name="MasterVolumeSlider" type="HSlider" parent="."]
+offset_left = 2613.0
+offset_top = 921.0
+offset_right = 3051.0
+offset_bottom = 937.0
 focus_neighbor_left = NodePath("../ViewportOptions")
 focus_neighbor_top = NodePath("../ReferenceRect/BackButton")
 focus_neighbor_right = NodePath("../ResolutionOptions")
+focus_neighbor_bottom = NodePath("../SFXVolumeSlider")
+focus_next = NodePath("../SFXVolumeSlider")
+focus_previous = NodePath("../ViewportOptions")
+min_value = -80.0
+max_value = 6.0
+
+[node name="SFXVolumeLabel" type="Label" parent="."]
+offset_left = 2613.0
+offset_top = 1039.0
+offset_right = 3023.0
+offset_bottom = 1119.0
+theme_override_fonts/font = ExtResource("2_dj67t")
+theme_override_font_sizes/font_size = 64
+text = "SFX Volume"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="."]
+offset_left = 2613.0
+offset_top = 1183.0
+offset_right = 3051.0
+offset_bottom = 1199.0
+focus_neighbor_left = NodePath("../ViewportOptions")
+focus_neighbor_top = NodePath("../MasterVolumeSlider")
+focus_neighbor_right = NodePath("../ResolutionOptions")
 focus_neighbor_bottom = NodePath("../ReferenceRect/BackButton")
 focus_next = NodePath("../ReferenceRect/ApplyButton")
-focus_previous = NodePath("../ViewportOptions")
+focus_previous = NodePath("../MasterVolumeSlider")
 min_value = -80.0
 max_value = 6.0
 
@@ -172,4 +196,5 @@ max_value = 6.0
 [connection signal="pressed" from="ReferenceRect/ApplyButton" to="." method="_on_apply_button_pressed"]
 [connection signal="item_selected" from="ResolutionOptions" to="." method="_on_resolution_options_item_selected"]
 [connection signal="item_selected" from="ViewportOptions" to="." method="_on_viewport_mode_options_item_selected"]
-[connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="MasterVolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]

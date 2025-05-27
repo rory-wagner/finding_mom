@@ -4,13 +4,15 @@ signal back_button_pressed
 
 var selectedResolution := "3840 X 2160"
 var selectedViewportMode := "Fullscreen"
-var selectedVolume := 0.0
+var selectedMasterVolume := 0.0
+var selectedSFXVolume := 0.0
 
 var config = ConfigFile.new()
 
 var SettingsFile := "user://settings.cfg"
 
 func _ready():
+	load_settings()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,6 +23,7 @@ func apply_settings():
 	_on_apply_button_pressed()
 
 func _on_apply_button_pressed():
+	$ReferenceRect/ApplyButton.disabled = true
 	# set resolution:
 	var sizes = selectedResolution.split(" X ", false, 2)
 	get_window().size = Vector2i(int(sizes[0]), int(sizes[1]))
@@ -42,14 +45,17 @@ func _on_apply_button_pressed():
 	
 	# set master volume:
 	var master_index := AudioServer.get_bus_index("Master")
-	AudioServer.set_bus_volume_db(master_index, selectedVolume)
+	AudioServer.set_bus_volume_db(master_index, selectedMasterVolume)
+	var sfx_index := AudioServer.get_bus_index("SFX")
+	AudioServer.set_bus_volume_db(sfx_index, selectedSFXVolume)
 	
-	save_config(selectedResolution, selectedViewportMode, selectedVolume)
+	save_config(selectedResolution, selectedViewportMode, selectedMasterVolume, selectedSFXVolume)
 	
-func save_config(resolution, viewport_mode, master_volume):
+func save_config(resolution, viewport_mode, master_volume, sfx_volume):
 	config.set_value("Settings", "resolution", resolution)
 	config.set_value("Settings", "viewport_mode", viewport_mode)
 	config.set_value("Settings", "master_volume", master_volume)
+	config.set_value("Settings", "sfx_volume", sfx_volume)
 	config.save(SettingsFile)
 	
 func load_settings():
@@ -60,9 +66,14 @@ func load_settings():
 
 	# retrieve the settings from the config file
 	for setting in config.get_sections():
-		selectedResolution = config.get_value("Settings", "resolution")
-		selectedViewportMode = config.get_value("Settings", "viewport_mode")
-		selectedVolume = config.get_value("Settings", "master_volume")
+		if config.has_section_key("Settings", "resolution"):
+			selectedResolution = config.get_value("Settings", "resolution")
+		if config.has_section_key("Settings", "viewport_mode"):
+			selectedViewportMode = config.get_value("Settings", "viewport_mode")
+		if config.has_section_key("Settings", "master_volume"):
+			selectedMasterVolume = config.get_value("Settings", "master_volume")
+		if config.has_section_key("Settings", "sfx_volume"):
+			selectedSFXVolume = config.get_value("Settings", "sfx_volume")
 
 	# next find the index of what they are and set them with this:
 	$ResolutionOptions.select(0)
@@ -73,13 +84,16 @@ func load_settings():
 	for i in $ViewportOptions.item_count:
 		if $ViewportOptions.get_item_text(i) == selectedViewportMode:
 			$ViewportOptions.select(i)
-	$VolumeSlider.value = selectedVolume
+	$MasterVolumeSlider.value = selectedMasterVolume
+	$SFXVolumeSlider.value = selectedSFXVolume
 
 func _on_resolution_options_item_selected(index):
 	selectedResolution = $ResolutionOptions.get_item_text(index)
+	$ReferenceRect/ApplyButton.disabled = false
 
 func _on_viewport_mode_options_item_selected(index):
 	selectedViewportMode = $ViewportOptions.get_item_text(index)
+	$ReferenceRect/ApplyButton.disabled = false
 
 func _on_back_button_pressed():
 	back_button_pressed.emit()
@@ -89,4 +103,11 @@ func take_focus():
 	$ReferenceRect/ApplyButton.grab_focus()
 
 func _on_volume_slider_value_changed(value):
-	selectedVolume = $VolumeSlider.value
+	selectedMasterVolume = $MasterVolumeSlider.value
+	$ReferenceRect/ApplyButton.disabled = false
+
+
+func _on_sfx_volume_slider_value_changed(value):
+	selectedSFXVolume = $SFXVolumeSlider.value
+	$ReferenceRect/ApplyButton.disabled = false
+
