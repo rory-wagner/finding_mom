@@ -102,6 +102,7 @@ func stop_spawning():
 	
 func end_level(player_location: Vector2):
 	stop_spawning()
+	#TODO: just start using the MobSpawnLocations here too
 	var all_portal_locations = [
 		{
 			"distance": 0,
@@ -140,6 +141,7 @@ func sort_by_distance(a, b):
 		return true
 	return false
 
+# TODO: fix this by calling get_all_mob_spawnable_locations() from the $Background
 func create_spawn_locations():
 	var start = $MobSpawnLocation.position
 	var end = $MobSpawnLocation2.position
