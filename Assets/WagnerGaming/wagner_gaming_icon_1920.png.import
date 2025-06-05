@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjq0hw3kmhyf0"
-path="res://.godot/imported/wagner_gaming_icon_v1.png-2750405ca436275b5ec2324685557216.ctex"
+uid="uid://bhjgjc56n2x8i"
+path="res://.godot/imported/wagner_gaming_icon_1920.png-e7e5d363cb092f61afcad50bebe34788.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/WagnerGaming/wagner_gaming_icon_v1.png"
-dest_files=["res://.godot/imported/wagner_gaming_icon_v1.png-2750405ca436275b5ec2324685557216.ctex"]
+source_file="res://Assets/WagnerGaming/wagner_gaming_icon_1920.png"
+dest_files=["res://.godot/imported/wagner_gaming_icon_1920.png-e7e5d363cb092f61afcad50bebe34788.ctex"]
 
 [params]
 

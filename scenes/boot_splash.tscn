@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj4kix3hmoxxj"]
+
+[ext_resource type="Script" path="res://scenes/BootSplash.gd" id="1_ru8yt"]
+[ext_resource type="Texture2D" uid="uid://cyidt54h36ouc" path="res://Assets/WagnerGaming/wagner_gaming_icon_4k.png" id="2_2fwrq"]
+
+[node name="BootSplash" type="Node2D"]
+script = ExtResource("1_ru8yt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Container" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Container"]
+layout_mode = 0
+offset_left = -1900.0
+offset_top = -1060.0
+offset_right = 1940.0
+offset_bottom = 1100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Container"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_2fwrq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
