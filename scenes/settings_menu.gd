@@ -13,6 +13,11 @@ var SettingsFile := "user://settings.cfg"
 
 func _ready():
 	load_settings()
+	var resPopup = $ResolutionOptions.get_popup()
+	resPopup.add_theme_font_size_override("font_size", 40)
+	var viewPopup = $ViewportOptions.get_popup()
+	viewPopup.add_theme_font_size_override("font_size", 40)
+	
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -43,7 +43,8 @@ func live_again():
 func _ready():
 	current_state = states.DEAD
 	hide()
-	$InvulnerableTimer.stop()
+	$InvulnerableTimer.stop() # reset the timer
+	_on_invulnerable_timer_timeout() # reset the shader
 
 func start_animations(v: Vector2):
 	if current_state == states.ROLL or current_state == states.PARRY:

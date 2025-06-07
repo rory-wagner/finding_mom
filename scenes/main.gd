@@ -36,6 +36,7 @@ func game_over():
 
 #this function is called every time the start button is pressed
 func new_game():
+	Engine.time_scale = 1.0 # reset in case of freeze frame carry over
 	play_next_level()
 	$Player.live_again()
 
