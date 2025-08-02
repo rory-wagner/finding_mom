@@ -20,8 +20,11 @@ func _on_quit_button_pressed():
 	return_menu.emit()
 
 func _process(_delta):
-	if Input.is_action_just_pressed("pause"):
-		_on_resume_button_pressed()
+	if Input.is_action_just_pressed("pause"): # 'esc' key was pressed
+		if $SettingsMenu.visible:
+			_on_settings_button_pressed()
+		else:
+			_on_resume_button_pressed()
 	pass
 	
 # this grabs the focus when the menu or settings is switched to this scene
