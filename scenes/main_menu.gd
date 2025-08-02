@@ -1,6 +1,7 @@
 extends Node2D
 
 var game = load("res://scenes/main_game.tscn")
+var repeat_music = load("res://Assets/Music/layered_mom.wav")
 
 var focused_node: Control
 
@@ -24,7 +25,7 @@ func _ready():
 	$MainMenuCanvas/ReferenceRect/PLAY_BUTTON.grab_focus()
 	focused_node = $MainMenuCanvas/ReferenceRect/PLAY_BUTTON
 	
-	$MenuThemeSong.play()
+	$IntroMenuThemeSong.play()
 	
 	get_viewport().connect("gui_focus_changed", focus_changed)
 	
@@ -55,6 +56,6 @@ func _on_settings_button_pressed():
 		$MainMenuCanvas/ReferenceRect/PLAY_BUTTON.grab_focus()
 		$SettingsMenu.hide()
 
-
 func _on_menu_theme_song_finished():
-	$MenuThemeSong.play()
+	$RepeatMenuThemeSong.play()
+	$IntroMenuThemeSong.stop()

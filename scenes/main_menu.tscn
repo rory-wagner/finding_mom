@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cscp8ee41n224"]
+[gd_scene load_steps=20 format=3 uid="uid://cscp8ee41n224"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_84h01"]
 [ext_resource type="PackedScene" uid="uid://cdbt8nsaysi3g" path="res://scenes/opening_scene.tscn" id="2_tbjnd"]
@@ -9,7 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://d1q2g8bpf7atj" path="res://Assets/Controls/gdb-switch-2.png" id="7_4gw1w"]
 [ext_resource type="Texture2D" uid="uid://tr5rdwvg3brg" path="res://Assets/Controls/gdb-playstation-2.png" id="8_oiex5"]
 [ext_resource type="Texture2D" uid="uid://rdwslsowfsmu" path="res://Assets/Controls/gdb-xbox-2.png" id="9_qj2bb"]
-[ext_resource type="AudioStream" uid="uid://bncucsk3jgpkc" path="res://Assets/Music/mom_theme.mp3" id="10_stfje"]
+[ext_resource type="AudioStream" uid="uid://b5x1lqvb1mnyp" path="res://Assets/Music/intro_mom.wav" id="10_su3wa"]
+[ext_resource type="AudioStream" uid="uid://dtywl7xkuqcyi" path="res://Assets/Music/layered_mom.wav" id="11_cy5mc"]
 
 [sub_resource type="GDScript" id="GDScript_p1d5m"]
 script/source = "extends Button
@@ -218,8 +219,12 @@ scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_p0sr3")
 animation = &"xbox"
 
-[node name="MenuThemeSong" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_stfje")
+[node name="IntroMenuThemeSong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_su3wa")
+bus = &"Main Menu"
+
+[node name="RepeatMenuThemeSong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_cy5mc")
 bus = &"Main Menu"
 
 [connection signal="finish" from="OpeningScene" to="." method="_on_opening_scene_finish"]
@@ -227,4 +232,5 @@ bus = &"Main Menu"
 [connection signal="pressed" from="MainMenuCanvas/ReferenceRect2/SETTINGS_BUTTON" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/ReferenceRect3/QUIT_BUTTON" to="." method="_on_quit_button_pressed"]
 [connection signal="back_button_pressed" from="SettingsMenu" to="." method="_on_settings_button_pressed"]
-[connection signal="finished" from="MenuThemeSong" to="." method="_on_menu_theme_song_finished"]
+[connection signal="finished" from="IntroMenuThemeSong" to="." method="_on_menu_theme_song_finished"]
+[connection signal="finished" from="RepeatMenuThemeSong" to="." method="_on_menu_theme_song_finished"]

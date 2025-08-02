@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_dy0lc"]
 [ext_resource type="PackedScene" uid="uid://b4lsq4j31jm0c" path="res://scenes/mob.tscn" id="2_oiylw"]
-[ext_resource type="AudioStream" uid="uid://cw6ry5nsvfxvi" path="res://Assets/Music/gameover.wav" id="3_ww1ux"]
 [ext_resource type="PackedScene" uid="uid://dkb5xls87v012" path="res://scenes/level.tscn" id="3_xn5re"]
+[ext_resource type="AudioStream" uid="uid://ibac7fwrxt76" path="res://Assets/Music/YOUREDEAD.wav" id="5_fgktn"]
 [ext_resource type="PackedScene" uid="uid://rgkuwjb6bgdc" path="res://scenes/player.tscn" id="5_vuccf"]
 [ext_resource type="AudioStream" uid="uid://b2myfvsftplc7" path="res://Assets/Music/vinyl.wav" id="5_yql13"]
 [ext_resource type="PackedScene" uid="uid://bbmdp63cwku5e" path="res://scenes/hud.tscn" id="6_tiw4t"]
@@ -21,12 +21,13 @@ position = Vector2(1920, 1080)
 
 [node name="VHSOverlay" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_yql13")
-volume_db = -5.0
+volume_db = -4.0
 autoplay = true
 bus = &"SFX"
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_ww1ux")
+stream = ExtResource("5_fgktn")
+volume_db = 1.0
 bus = &"SFX"
 
 [node name="Player" parent="." instance=ExtResource("5_vuccf")]

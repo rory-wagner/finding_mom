@@ -28,6 +28,7 @@ func flip_pause_screen():
 func game_over():
 	$HUD.stop()
 	$Level.stop_spawning()
+	$Level.stop_music()
 	$HUD.show_game_over()
 	#$Music.stop()#TODO: call level stop_music???
 	$DeathSound.play()
