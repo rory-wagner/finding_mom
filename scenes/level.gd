@@ -201,6 +201,11 @@ func _on_music_finished():
 	$Music.play()
 	return OK
 	
+# called by parent to stop music if player has died
+func stop_music():
+	$Music.stop()
+	return OK
+	
 func create_mob():
 	# Create a new instance of the Mob scene.
 	var mob: Node = mob_scene.instantiate()
