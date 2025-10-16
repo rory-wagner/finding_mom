@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://rgkuwjb6bgdc"]
+[gd_scene load_steps=48 format=3 uid="uid://rgkuwjb6bgdc"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_r8k0x"]
 [ext_resource type="Shader" path="res://scenes/shaders/flash.gdshader" id="2_igonk"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://cms51geythps7" path="res://Assets/Characters/player_character/shoot_2.png" id="28_bt12y"]
 [ext_resource type="Texture2D" uid="uid://c6gtwwm872yjk" path="res://Assets/Characters/player_character/shoot_3.png" id="29_5cv8k"]
 [ext_resource type="Texture2D" uid="uid://c3gsqtlbd6v4d" path="res://Assets/Icons/pointing_hand.png" id="33_s1b6r"]
+[ext_resource type="AudioStream" uid="uid://0nyj8jdoobvx" path="res://Assets/Music/on_parry.wav" id="35_m5gcl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5b52"]
 radius = 63.0
@@ -341,6 +342,11 @@ visible = false
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_hlihm")
 animation = &"point"
+
+[node name="ParryAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("35_m5gcl")
+volume_db = -10.0
+bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
