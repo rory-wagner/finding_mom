@@ -237,3 +237,4 @@ func _on_area_2d_body_entered(body):
 		$Area2D.collision_mask = 0
 		# used to remove the bullet
 		body.collide_with_target()
+		$OnHitAudioPlayer.play()

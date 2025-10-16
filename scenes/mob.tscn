@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b4lsq4j31jm0c"]
+[gd_scene load_steps=52 format=3 uid="uid://b4lsq4j31jm0c"]
 
 [ext_resource type="Script" path="res://scenes/mob.gd" id="1_uk6uk"]
 [ext_resource type="Texture2D" uid="uid://co4eihc8e5y20" path="res://Assets/Characters/bug/basic_bug.png" id="2_4yvq4"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://dk8h744msg4te" path="res://Assets/Characters/drone/drone_death_8.png" id="29_twm1o"]
 [ext_resource type="Texture2D" uid="uid://dp37g3bhu221" path="res://Assets/Characters/spider/spider_dead_6.png" id="30_trtur"]
 [ext_resource type="Texture2D" uid="uid://xihegy8er2vl" path="res://Assets/Characters/spider/spider_dead_7.png" id="31_1nrdc"]
+[ext_resource type="AudioStream" uid="uid://bcad8sflj1ya5" path="res://Assets/Music/on_hit.wav" id="45_cxstl"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_js4xo"]
 load_path = "res://.godot/imported/burn_noise.png-a1a4034108cad3358dd0b093b230356e.ctex"
@@ -313,6 +314,11 @@ animation = &"drone"
 [node name="BulletTimer" type="Timer" parent="."]
 wait_time = 4.0
 autostart = true
+
+[node name="OnHitAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("45_cxstl")
+volume_db = -12.0
+bus = &"SFX"
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
