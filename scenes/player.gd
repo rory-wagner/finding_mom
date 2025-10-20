@@ -33,7 +33,12 @@ enum states {
 	ROLL,
 	DEAD,
 	SHOOT,
+	DISABLED,
 }
+
+func disable():
+	current_state = states.DISABLED
+	set_collisions(0)
 
 func live_again():
 	current_state = states.MOVE
@@ -96,7 +101,7 @@ func _process(delta):
 		if v.normalized() != Vector2.ZERO:
 			last_direction_rotation = atan2(v.normalized().y, v.normalized().x)
 
-		var speed_used
+		var speed_used = 0
 		match current_state:
 			states.MOVE, states.SHOOT:
 				# might need to detect shooting here instead
@@ -267,12 +272,15 @@ func start(pos):
 func get_is_dead():
 	return current_state == states.DEAD
 	
+# When dead, display death animation
+# When alive, display everything, reset collisions, and allow movement
 func set_is_dead(d: bool):
 	if d:
 		current_state = states.DEAD
 		$Area2D/BodySprite.play("death")
 		$Area2D/LegsSprite.hide()
 	else:
+		set_collisions(5)
 		current_state = states.MOVE
 		$Area2D/LegsSprite.show()
 
@@ -355,6 +363,9 @@ func _on_parry_area_body_entered(body):
 		set_parry_all_collisions(4)
 		$ParrySuccessTimer.start()
 		# TODO: implement some shaders on successful parry
+		
+		# random pitch scale the audio for parry
+		$ParryAudioPlayer.pitch_scale = .95 + (randf() * 0.1)
 		$ParryAudioPlayer.play()
 		pass
 
