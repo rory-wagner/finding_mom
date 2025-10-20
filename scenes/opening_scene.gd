@@ -35,3 +35,4 @@ func end():
 	
 func _on_robot_body_body_entered(_body):
 	$RobotBody.queue_free()
+	$PortalEnteredAudio.play()

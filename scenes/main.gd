@@ -128,6 +128,8 @@ func _on_player_entered_portal():
 	$PortalEnteredTimer.start()
 	# TODO: play some sort of animation to show that the player has teleported, turn off controls, and turn off emits. IDEA: create a new player state called DISABLED
 	$Player.hide()
+	$Player.disable()
+	$PortalEnteredAudio.play()
 	
 
 func _on_portal_entered_timer_timeout():

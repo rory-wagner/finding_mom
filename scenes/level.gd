@@ -18,6 +18,8 @@ enum enemy_production_type {
 var level_music_lengths = [
 	0,
 	74,
+	5,
+	5,
 ]
 
 var level_music = [

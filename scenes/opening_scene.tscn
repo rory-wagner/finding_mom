@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cdbt8nsaysi3g"]
+[gd_scene load_steps=31 format=3 uid="uid://cdbt8nsaysi3g"]
 
 [ext_resource type="Script" path="res://scenes/opening_scene.gd" id="1_wbu2k"]
 [ext_resource type="Script" path="res://scenes/RobotBody.gd" id="2_0w4d4"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://xuipbd4pj7gf" path="res://Assets/Portal/portal_large_2.png" id="17_gt54k"]
 [ext_resource type="Texture2D" uid="uid://dv6j0xuwdx0og" path="res://Assets/Portal/portal_large_3.png" id="18_5o6mc"]
 [ext_resource type="Texture2D" uid="uid://omapehl5m04x" path="res://Assets/Portal/portal_large_4.png" id="19_2rwkp"]
+[ext_resource type="AudioStream" uid="uid://bcw54ijlmlhg3" path="res://Assets/Music/swoosh.wav" id="21_yo8rr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qp0if"]
 animations = [{
@@ -395,5 +396,10 @@ animation = &"walk"
 libraries = {
 "": SubResource("AnimationLibrary_241kr")
 }
+
+[node name="PortalEnteredAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_yo8rr")
+volume_db = 1.1
+bus = &"SFX"
 
 [connection signal="body_entered" from="RobotBody" to="." method="_on_robot_body_body_entered"]

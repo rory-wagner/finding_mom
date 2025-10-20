@@ -237,4 +237,7 @@ func _on_area_2d_body_entered(body):
 		$Area2D.collision_mask = 0
 		# used to remove the bullet
 		body.collide_with_target()
+		
+		# random pitch scale the SFX
+		$OnHitAudioPlayer.pitch_scale = .95 + (randf() * 0.1)
 		$OnHitAudioPlayer.play()

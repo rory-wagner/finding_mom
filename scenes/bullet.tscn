@@ -74,6 +74,7 @@ func set_bullet(n: int):
 # called from main game
 func play_sound():
 	# TODO: check for type and play the correct type of sound
+	# random pitch scale the SFX
 	$AudioStreamPlayer.pitch_scale = .95 + (randf() * 0.1)
 	$AudioStreamPlayer.play()
 

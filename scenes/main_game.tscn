@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cablsla7psjjs"]
+[gd_scene load_steps=10 format=3 uid="uid://cablsla7psjjs"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_dy0lc"]
 [ext_resource type="PackedScene" uid="uid://b4lsq4j31jm0c" path="res://scenes/mob.tscn" id="2_oiylw"]
 [ext_resource type="PackedScene" uid="uid://dkb5xls87v012" path="res://scenes/level.tscn" id="3_xn5re"]
+[ext_resource type="AudioStream" uid="uid://bcw54ijlmlhg3" path="res://Assets/Music/swoosh.wav" id="5_36rnt"]
 [ext_resource type="AudioStream" uid="uid://ibac7fwrxt76" path="res://Assets/Music/YOUREDEAD.wav" id="5_fgktn"]
 [ext_resource type="PackedScene" uid="uid://rgkuwjb6bgdc" path="res://scenes/player.tscn" id="5_vuccf"]
 [ext_resource type="AudioStream" uid="uid://b2myfvsftplc7" path="res://Assets/Music/vinyl.wav" id="5_yql13"]
@@ -23,6 +24,11 @@ position = Vector2(1920, 1080)
 stream = ExtResource("5_yql13")
 volume_db = -4.0
 autoplay = true
+bus = &"SFX"
+
+[node name="PortalEnteredAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_36rnt")
+volume_db = 1.1
 bus = &"SFX"
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
